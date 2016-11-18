@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <memory>
@@ -9,15 +10,26 @@
 #include "option.hpp"
 #include "word.hpp"
 
+// Prevent wrapping.
+typedef std::vector<std::unique_ptr<Option>> OptionVector;
+
+static void print_options(void) {
+  OptionVector options = get_options();
+  std::cout << "The available options are:" << '\n';
+  for (auto it = options.begin(); it != options.end(); it++) {
+    std::cout << std::setw(4) << ' ';
+    std::cout << std::setw(16) << std::left << (**it).name;
+    std::cout << ' ' << (**it).info << '\n';
+  }
+}
+
 static void print_usage(const std::string &program_name) {
   std::cout << "Usage: " << program_name;
   std::cout << ' ' << "[OPTIONS]";
   std::cout << ' ' << "LETTERS";
   std::cout << '\n';
+  print_options();
 }
-
-// Prevent wrapping.
-typedef std::vector<std::unique_ptr<Option>> OptionVector;
 
 /**
  * Reads the command line options.
