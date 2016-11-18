@@ -1,13 +1,7 @@
 language: cpp
 dist: trusty
 
-addons:
-  apt:
-    packages:
-      - libc++-dev
-
 compiler:
-  - clang
   - gcc
 
 script:
