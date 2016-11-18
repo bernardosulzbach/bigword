@@ -3,7 +3,11 @@ cmake_minimum_required (VERSION 3.4)
 project (bigword)
 
 set (CMAKE_CXX_STANDARD 14)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++98-compat")
+
+# Just add -Wall -Wextra -Werror if using GCC or Clang.
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+endif ()
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
