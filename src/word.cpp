@@ -39,12 +39,20 @@ LetterCount::LetterCount(const std::string &word) {
   }
 }
 
+bool LetterCount::operator==(const LetterCount &other) const {
+  return letter_count == other.letter_count && counters == other.counters;
+}
+
 bool LetterCount::operator<(const LetterCount &other) const {
   return letter_count < other.letter_count;
 }
 
 Word::Word(const std::string &string) : count(LetterCount(string)) {
   word = string;
+}
+
+bool Word::operator==(const Word &other) const {
+  return word == other.word && count == other.count;
 }
 
 bool Word::operator<(const Word &other) const { return word < other.word; }

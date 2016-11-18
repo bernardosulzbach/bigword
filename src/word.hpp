@@ -28,6 +28,8 @@ class LetterCount {
  public:
   LetterCount(const std::string &word);
 
+  bool operator==(const LetterCount &other) const;
+
   bool operator<(const LetterCount &other) const;
 
   static bool is_contained(const LetterCount &a, const LetterCount &b) {
@@ -50,19 +52,20 @@ class LetterCount {
   }
 };
 
-
 class Word {
  private:
   std::string word;
   LetterCount count;
- 
+
  public:
   Word(const std::string &string);
+
+  bool operator==(const Word &other) const;
 
   bool operator<(const Word &other) const;
 
   std::string to_string(void) const;
-  
+
   static bool is_contained(const Word &a, const Word &b) {
     return LetterCount::is_contained(a.count, b.count);
   }
