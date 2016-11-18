@@ -1,0 +1,19 @@
+language: cpp
+dist: trusty
+
+compiler:
+  - clang
+  - gcc
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+    recipients:
+      - mafagafogigante@gmail.com
