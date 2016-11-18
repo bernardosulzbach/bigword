@@ -32,7 +32,7 @@ static bool is_valid_word(const std::string &word);
 
 static bool is_big_enough(const std::string &word, const std::string &input);
 
-static std::string get_words_filename(void) { return "words"; }
+static std::string get_words_filename(void) { return "words.txt"; }
 
 static bool is_countable_letter(const char letter) {
   return letter >= 'a' && letter <= 'z';
