@@ -110,7 +110,7 @@ std::ostream &operator<<(std::ostream &stream, const Word &word) {
 int main(int argc, char *argv[]) {
   std::ios_base::sync_with_stdio(false);
   if (argc < 2) {
-    std::cout << "Pass the lettes as arguments to the program." << '\n';
+    std::cout << "Usage: " << argv[0] << ' ' << "LETTERS" << '\n';
     return 0;
   }
   const Word input_word = Word(std::string(argv[1]));
