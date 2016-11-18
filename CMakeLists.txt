@@ -11,7 +11,11 @@ endif ()
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
-add_executable (bigword src/word.hpp src/word.cpp src/bigword.cpp)
+add_executable (bigword
+    src/option.hpp src/option.cpp
+    src/clock.hpp src/clock.cpp
+    src/word.hpp src/word.cpp
+    src/main.cpp)
 
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD

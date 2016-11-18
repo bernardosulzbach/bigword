@@ -1,5 +1,5 @@
-#ifndef BIGWORD_WORDS_HPP
-#define BIGWORD_WORDS_HPP
+#ifndef WORD_HPP
+#define WORD_HPP
 
 #include <algorithm>
 #include <fstream>

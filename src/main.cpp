@@ -2,9 +2,11 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "option.hpp"
 #include "word.hpp"
 
 static void print_usage(const std::string &program_name) {
@@ -14,12 +16,39 @@ static void print_usage(const std::string &program_name) {
   std::cout << '\n';
 }
 
+// Prevent wrapping.
+typedef std::vector<std::unique_ptr<Option>> OptionVector;
+
+/**
+ * Reads the command line options.
+ */
+static OptionVector read_options(int argc, char *argv[]) {
+  OptionVector options = get_options();
+  OptionVector selected;
+  for (int i = 1; i != argc; i++) {
+    const std::string argument(argv[i]);
+    if (!argument.empty()) {
+      if (argument[0] != '-') {
+        break;
+      }
+      for (auto it = options.begin(); it != options.end(); it++) {
+        if ((**it).name == argument) {
+          selected.push_back(std::move(*it));
+          options.erase(it);
+          break;
+        }
+      }
+    }
+  }
+  return selected;
+}
+
 /**
  * Reads the input letters and make a word from it.
  *
  * Returns the empty word if there were no good candidates.
  */
-static Word read_input_letters(int argc, char *argv[]) {
+static Word read_input(int argc, char *argv[]) {
   for (int i = 1; i != argc; i++) {
     const std::string argument(argv[i]);
     if (!argument.empty()) {
@@ -50,7 +79,8 @@ static std::vector<Word> read_words(const Word &word) {
   return words;
 }
 
-static void print_matches(Word input, std::vector<Word> words) {
+static std::vector<Word> find_matches(Word input, std::vector<Word> words) {
+  std::vector<Word> word_vector;
   Word match = Word("");
   bool found = false;
   for (auto iter = words.rbegin(); iter != words.rend(); iter++) {
@@ -67,25 +97,36 @@ static void print_matches(Word input, std::vector<Word> words) {
         // Update the first match.
         match = word;
       }
-      std::cout << word << '\n';
+      word_vector.push_back(word);
     }
   }
+  return word_vector;
 }
 
 int main(int argc, char *argv[]) {
   std::ios_base::sync_with_stdio(false);
+  const TimePoint start;
   if (argc < 2) {
     // Fail if there are too few arguments.
     print_usage(std::string(argv[0]));
     return 0;
   }
-  const Word input_word = read_input_letters(argc, argv);
-  if (input_word == Word("")) {
+  const OptionVector options = read_options(argc, argv);
+  const Word input = read_input(argc, argv);
+  if (input == Word("")) {
     // Fail if there is no valid input multiset of letters.
     print_usage(std::string(argv[0]));
     return 0;
   }
-  std::vector<Word> words = read_words(input_word);
-  print_matches(input_word, words);
+  std::vector<Word> words = read_words(input);
+  std::vector<Word> matches = find_matches(input, words);
+  const TimePoint end;
+  const Duration duration(start, end);
+  for (Word match : matches) {
+    std::cout << match << '\n';
+  }
+  for (auto it = options.begin(); it != options.end(); it++) {
+    (**it).run(duration, matches);
+  }
   return 0;
 }
