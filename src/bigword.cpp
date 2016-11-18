@@ -7,23 +7,6 @@
 
 #include "word.hpp"
 
-static std::vector<Word> read_words(const Word &word) {
-  std::vector<Word> words;
-  std::string string;
-  std::ifstream words_file(get_words_filename());
-  while (words_file >> string) {
-    if (!is_valid_word(string)) {
-      continue;
-    }
-    if (!is_big_enough(string, word.to_string())) {
-      continue;
-    }
-    words.push_back(Word(string));
-  }
-  std::sort(words.begin(), words.end(), Word::compare_by_size);
-  return words;
-}
-
 static void print_usage(const std::string &program_name) {
   std::cout << "Usage: " << program_name;
   std::cout << ' ' << "[OPTIONS]";
@@ -48,6 +31,23 @@ static Word read_input_letters(int argc, char *argv[]) {
     }
   }
   return Word("");
+}
+
+static std::vector<Word> read_words(const Word &word) {
+  std::vector<Word> words;
+  std::string string;
+  std::ifstream words_file(get_words_filename());
+  while (words_file >> string) {
+    if (!is_valid_word(string)) {
+      continue;
+    }
+    if (!is_big_enough(string, word.to_string())) {
+      continue;
+    }
+    words.push_back(Word(string));
+  }
+  std::sort(words.begin(), words.end(), Word::compare_by_size);
+  return words;
 }
 
 static void print_matches(Word input, std::vector<Word> words) {
