@@ -28,15 +28,24 @@ static std::string get_words_filename(void);
 
 static std::string get_words_filename(void) { return "words"; }
 
+bool is_countable_letter(const char letter) {
+  return letter >= 'a' && letter <= 'z';
+}
+
+bool is_valid_word(const std::string &word) {
+  for (char letter : word) {
+    if (!is_countable_letter(letter)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 class LetterCount {
   static const size_t alphabet_size = 'z' - 'a' + 1;
 
   size_t letter_count = 0;
   std::vector<uint8_t> counters = std::vector<uint8_t>(alphabet_size, 0);
-
-  bool is_countable_letter(const char letter) {
-    return letter >= 'a' && letter <= 'z';
-  }
 
   size_t get_letter_counter(const char letter) {
     return static_cast<size_t>(letter - 'a');
@@ -118,6 +127,9 @@ int main(int argc, char *argv[]) {
   std::vector<Word> words;
   std::ifstream words_file(get_words_filename());
   while (words_file >> string) {
+    if (!is_valid_word(string)) {
+      continue;
+    }
     words.push_back(Word(string));
   }
   std::sort(words.begin(), words.end(), Word::compare_by_size);
