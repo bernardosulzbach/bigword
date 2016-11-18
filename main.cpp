@@ -26,19 +26,29 @@
 
 static std::string get_words_filename(void);
 
+static bool is_countable_letter(const char letter);
+
+static bool is_valid_word(const std::string &word);
+
+static bool is_big_enough(const std::string &word, const std::string &input);
+
 static std::string get_words_filename(void) { return "words"; }
 
-bool is_countable_letter(const char letter) {
+static bool is_countable_letter(const char letter) {
   return letter >= 'a' && letter <= 'z';
 }
 
-bool is_valid_word(const std::string &word) {
+static bool is_valid_word(const std::string &word) {
   for (char letter : word) {
     if (!is_countable_letter(letter)) {
       return false;
     }
   }
   return true;
+}
+
+static bool is_big_enough(const std::string &word, const std::string &input) {
+  return word.size() <= input.size();
 }
 
 class LetterCount {
@@ -130,20 +140,18 @@ int main(int argc, char *argv[]) {
     if (!is_valid_word(string)) {
       continue;
     }
+    if (!is_big_enough(string, input_word.to_string())) {
+      continue;
+    }
     words.push_back(Word(string));
   }
   std::sort(words.begin(), words.end(), Word::compare_by_size);
-  auto upper = std::upper_bound(words.begin(), words.end(), input_word);
-  while (true) {
-    auto word = *upper;
+  for (auto iter = words.rbegin(); iter != words.rend(); iter++) {
+    const auto word = *iter;
     if (Word::is_contained(word, input_word)) {
       std::cout << word << '\n';
       break;
     }
-    if (upper == words.begin()) {
-      break;
-    }
-    upper--;
   }
   return 0;
 }
