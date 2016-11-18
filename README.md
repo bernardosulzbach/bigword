@@ -16,6 +16,7 @@ $ make
 ```bash
 $ ./bigword abcdefghij
 > jibhead
+> bighead
 $ ./bigword aeioubsdlinux
 > unoxidisable
 ```
