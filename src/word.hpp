@@ -21,7 +21,7 @@ class LetterCount {
   static const size_t alphabet_size = 'z' - 'a' + 1;
 
   size_t letter_count = 0;
-  std::vector<uint8_t> counters = std::vector<uint8_t>(alphabet_size, 0);
+  uint8_t counters[alphabet_size] = {0};
 
   size_t get_letter_counter(const char letter) const;
 
