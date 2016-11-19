@@ -58,6 +58,7 @@ class Word {
   LetterCount count;
 
  public:
+  Word();
   Word(const std::string &string);
 
   bool operator==(const Word &other) const;
@@ -75,6 +76,8 @@ class Word {
   }
 };
 
-std::ostream &operator<<(std::ostream &stream, const Word &word);
+std::ostream &operator<<(std::ostream &os, const Word &word);
+
+std::istream &operator>>(std::istream &is, Word &word);
 
 #endif

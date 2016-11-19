@@ -6,8 +6,8 @@
 #include <memory>
 #include <string>
 #include <vector>
-
 #include "option.hpp"
+#include "store.hpp"
 #include "word.hpp"
 
 // Prevent wrapping.
@@ -74,21 +74,9 @@ static Word read_input(int argc, char *argv[]) {
   return Word("");
 }
 
-static std::vector<Word> read_words(const Word &word) {
-  std::vector<Word> words;
-  std::string string;
-  std::ifstream words_file(get_words_filename());
-  while (words_file >> string) {
-    if (!is_valid_word(string)) {
-      continue;
-    }
-    if (!is_big_enough(string, word.to_string())) {
-      continue;
-    }
-    words.push_back(Word(string));
-  }
-  std::sort(words.begin(), words.end(), Word::compare_by_size);
-  return words;
+static std::vector<Word> read_words(void) {
+  const WordStore store = load_word_store(get_words_filename());
+  return store.words;
 }
 
 static std::vector<Word> find_matches(Word input, std::vector<Word> words) {
@@ -130,7 +118,7 @@ int main(int argc, char *argv[]) {
     print_usage(std::string(argv[0]));
     return 0;
   }
-  const std::vector<Word> words = read_words(input);
+  const std::vector<Word> words = read_words();
   const std::vector<Word> matches = find_matches(input, words);
   const TimePoint end;
   const Duration duration(start, end);

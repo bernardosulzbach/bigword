@@ -12,10 +12,18 @@ endif ()
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 add_executable (bigword
+    src/digest.hpp src/digest.cpp
     src/option.hpp src/option.cpp
     src/clock.hpp src/clock.cpp
+    src/store.hpp src/store.cpp
     src/word.hpp src/word.cpp
     src/main.cpp)
+
+find_package (OpenSSL)
+if (OPENSSL_FOUND)
+    include_directories (${OPENSSL_INCLUDE_DIRS})
+    target_link_libraries (bigword ${OPENSSL_LIBRARIES})
+endif ()
 
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD

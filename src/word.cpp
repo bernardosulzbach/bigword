@@ -1,11 +1,10 @@
+#include "word.hpp"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
-
-#include "word.hpp"
 
 static void report_unsupported_letter(const char letter) {
   std::cerr << "Found unsupported letter:";
@@ -58,6 +57,8 @@ bool LetterCount::operator<(const LetterCount &other) const {
   return letter_count < other.letter_count;
 }
 
+Word::Word() : Word("") {}
+
 Word::Word(const std::string &string) : count(LetterCount(string)) {
   word = string;
 }
@@ -70,7 +71,14 @@ bool Word::operator<(const Word &other) const { return word < other.word; }
 
 std::string Word::to_string(void) const { return word; }
 
-std::ostream &operator<<(std::ostream &stream, const Word &word) {
-  stream << word.to_string();
-  return stream;
+std::ostream &operator<<(std::ostream &os, const Word &word) {
+  os << word.to_string();
+  return os;
+}
+
+std::istream &operator>>(std::istream &is, Word &word) {
+  std::string string;
+  is >> string;
+  word = Word(string);
+  return is;
 }
