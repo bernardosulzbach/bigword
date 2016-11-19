@@ -130,8 +130,8 @@ int main(int argc, char *argv[]) {
     print_usage(std::string(argv[0]));
     return 0;
   }
-  std::vector<Word> words = read_words(input);
-  std::vector<Word> matches = find_matches(input, words);
+  const std::vector<Word> words = read_words(input);
+  const std::vector<Word> matches = find_matches(input, words);
   const TimePoint end;
   const Duration duration(start, end);
   for (Word match : matches) {
