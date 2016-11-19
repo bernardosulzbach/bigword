@@ -7,6 +7,15 @@
 
 #include "word.hpp"
 
+static void report_unsupported_letter(const char letter) {
+  std::cerr << "Found unsupported letter:";
+  std::cerr << ' ';
+  std::cerr << '"';
+  std::cerr << letter;
+  std::cerr << '"';
+  std::cerr << '\n';
+}
+
 std::string get_words_filename(void) { return "words.txt"; }
 
 bool is_countable_letter(const char letter) {
@@ -35,6 +44,8 @@ LetterCount::LetterCount(const std::string &word) {
     if (is_countable_letter(letter)) {
       counters[get_letter_counter(letter)]++;
       letter_count++;
+    } else {
+      report_unsupported_letter(letter);
     }
   }
 }
