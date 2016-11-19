@@ -48,7 +48,7 @@ class TimeOption : public Option {
 /**
  * Returns a vector of unique pointers to all available options.
  */
-std::vector<std::unique_ptr<Option>> get_options(void) {
+std::vector<std::unique_ptr<Option>> get_options() {
   std::vector<std::unique_ptr<Option>> options;
   options.push_back(std::unique_ptr<Option>(new TimeOption));
   return options;

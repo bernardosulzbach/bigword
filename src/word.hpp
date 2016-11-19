@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-std::string get_words_filename(void);
+std::string get_words_filename();
 
 bool is_countable_letter(const char letter);
 
@@ -65,7 +65,7 @@ class Word {
 
   bool operator<(const Word &other) const;
 
-  std::string to_string(void) const;
+  std::string to_string() const;
 
   static bool is_contained(const Word &a, const Word &b) {
     return LetterCount::is_contained(a.count, b.count);

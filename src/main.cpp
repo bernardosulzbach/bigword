@@ -13,7 +13,7 @@
 // Prevent wrapping.
 typedef std::vector<std::unique_ptr<Option>> OptionVector;
 
-static void print_options(void) {
+static void print_options() {
   OptionVector options = get_options();
   std::cout << "The available options are:" << '\n';
   for (auto it = options.begin(); it != options.end(); it++) {
@@ -74,7 +74,7 @@ static Word read_input(int argc, char *argv[]) {
   return Word("");
 }
 
-static std::vector<Word> read_words(void) {
+static std::vector<Word> read_words() {
   const WordStore store = load_word_store(get_words_filename());
   return store.words;
 }

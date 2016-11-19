@@ -15,7 +15,7 @@ static void report_unsupported_letter(const char letter) {
   std::cerr << '\n';
 }
 
-std::string get_words_filename(void) { return "words.txt"; }
+std::string get_words_filename() { return "words.txt"; }
 
 bool is_countable_letter(const char letter) {
   return letter >= 'a' && letter <= 'z';
@@ -69,7 +69,7 @@ bool Word::operator==(const Word &other) const {
 
 bool Word::operator<(const Word &other) const { return word < other.word; }
 
-std::string Word::to_string(void) const { return word; }
+std::string Word::to_string() const { return word; }
 
 std::ostream &operator<<(std::ostream &os, const Word &word) {
   os << word.to_string();
