@@ -13,6 +13,7 @@ static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
   os << store.store_name << '\n';
   os << store.source_digest << '\n';
   os << store.analysis << '\n';
+  os << store.words.size() << '\n';
   for (Word word : store.words) {
     os << word << '\n';
   }
@@ -20,9 +21,12 @@ static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
 }
 
 static std::istream &operator>>(std::istream &is, WordStore &store) {
+  size_t word_count = 0;
   is >> store.store_name;
   is >> store.source_digest;
   is >> store.analysis;
+  is >> word_count;
+  store.words.reserve(word_count);
   Word word;
   while (is >> word) {
     store.words.push_back(word);
