@@ -52,10 +52,15 @@ static void dump_word_store(const WordStore &store) {
   ofs << store;
 }
 
+// Helper static function: we can't take the address of a constructor.
+static Digest digest_file(const std::string &filename) {
+  return Digest(filename);
+}
+
 static WordStore make_word_store(const std::string &filename) {
+  auto future_digest = std::async(std::launch::async, digest_file, filename);
   WordStore store;
   store.store_name = derive_store_name(filename);
-  store.source_digest = Digest(filename);
   std::string string;
   std::ifstream ifs(filename);
   while (ifs >> string) {
@@ -65,23 +70,19 @@ static WordStore make_word_store(const std::string &filename) {
     store.words.push_back(Word(string));
     store.analysis.analyze(string);
   }
+  store.source_digest = future_digest.get();
   store.compile();
   return store;
-}
-
-// Helper static function: we can't take the address of a constructor.
-static Digest digest_file(const std::string &filename) {
-  return Digest(filename);
 }
 
 /**
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename) {
-  auto future = std::async(std::launch::async, digest_file, filename);
+  auto future_digest = std::async(std::launch::async, digest_file, filename);
   const std::string store_filename = derive_store_name(filename);
   WordStore store = recover_word_store(store_filename);
-  const Digest digest = future.get();
+  const Digest digest = future_digest.get();
   if (store.source_digest == digest) {
     return store;
   } else {
