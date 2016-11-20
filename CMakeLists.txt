@@ -21,10 +21,11 @@ add_executable (bigword
     src/word.hpp src/word.cpp
     src/main.cpp)
 
-find_package (OpenSSL)
+find_package (Threads REQUIRED)
+find_package (OpenSSL REQUIRED)
 if (OPENSSL_FOUND)
-    include_directories (${OPENSSL_INCLUDE_DIRS})
-    target_link_libraries (bigword ${OPENSSL_LIBRARIES})
+    include_directories (${OPENSSL_INCLUDE_DIRS} ${THREADS_INCLUDE_DIRS})
+    target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 endif ()
 
 # Copy needed data files.

@@ -1,7 +1,9 @@
 #include "store.hpp"
 #include <openssl/evp.h>
 #include <fstream>
+#include <future>
 #include <string>
+#include <thread>
 #include "rules.hpp"
 
 void WordStore::compile() {
@@ -67,14 +69,20 @@ static WordStore make_word_store(const std::string &filename) {
   return store;
 }
 
+// Helper static function: we can't take the address of a constructor.
+static Digest digest_file(const std::string &filename) {
+  return Digest(filename);
+}
+
 /**
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename) {
-  const Digest file_digest(filename);
+  auto future = std::async(digest_file, filename);
   const std::string store_filename = derive_store_name(filename);
   WordStore store = recover_word_store(store_filename);
-  if (store.source_digest == file_digest) {
+  const Digest digest = future.get();
+  if (store.source_digest == digest) {
     return store;
   } else {
     store = make_word_store(filename);
