@@ -17,8 +17,6 @@ class LetterCount {
   size_t letter_count = 0;
   uint8_t counters[alphabet_size] = {0};
 
-  size_t get_letter_counter(const char letter) const;
-
  public:
   LetterCount(const std::string &word);
 
