@@ -5,51 +5,36 @@
 #include <vector>
 #include "clock.hpp"
 
-static const double thousand = 1000.0;
-static const double million = thousand * thousand;
-static const double billion = thousand * thousand * thousand;
+typedef std::string string;
 
-static void write_time_with_unit(const uint64_t number, std::string name) {
-  if (number == 1) {
-    std::cout << number << ' ' << name;
-  } else {
-    std::cout << number << ' ' << name << 's';
+OptionList::OptionList() {
+  add_option(Option("--time", "Output computation times.", false));
+}
+
+void OptionList::add_option(Option option) {
+  map.insert({option.name, option});
+}
+
+void OptionList::parse(const std::string &string) {
+  for (auto it = map.begin(); it != map.end(); it++) {
+    if (it->first == string) {
+      it->second.value = true;
+    }
   }
 }
 
-static void write_time(const double nanoseconds) {
-  if (nanoseconds >= billion) {
-    const double seconds = nanoseconds / billion;
-    write_time_with_unit(std::floor(seconds), "second");
-  } else if (nanoseconds >= million) {
-    const double milliseconds = nanoseconds / million;
-    write_time_with_unit(std::floor(milliseconds), "millisecond");
-  } else if (nanoseconds >= thousand) {
-    const double microseconds = nanoseconds / thousand;
-    write_time_with_unit(std::floor(microseconds), "microsecond");
-  } else {
-    write_time_with_unit(std::floor(nanoseconds), "nanosecond");
+bool OptionList::is_timing() {
+  const auto iter = map.find("--time");
+  if (iter == map.end()) {
+    return false;
   }
+  return iter->second.value;
 }
 
-class TimeOption : public Option {
- public:
-  TimeOption() : Option("--time", "Output execution time.") {}
-
-  void run(const Duration duration, const std::vector<Word>&) {
-    std::cout << "Done after";
-    std::cout << ' ';
-    write_time(duration.to_nanoseconds());
-    std::cout << '.';
-    std::cout << '\n';
+void OptionList::print_options() const {
+  for (auto it = map.begin(); it != map.end(); it++) {
+    std::cout << std::setw(4) << ' ';
+    std::cout << std::setw(16) << std::left << it->second.name;
+    std::cout << ' ' << it->second.info << '\n';
   }
-};
-
-/**
- * Returns a vector of unique pointers to all available options.
- */
-std::vector<std::unique_ptr<Option>> get_options() {
-  std::vector<std::unique_ptr<Option>> options;
-  options.push_back(std::unique_ptr<Option>(new TimeOption));
-  return options;
 }
