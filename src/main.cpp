@@ -48,31 +48,22 @@ static WordVector read_input(int argc, char *argv[]) {
 }
 
 static WordVector find_matches(const WordStore &store, Word input) {
-  Word first_match = Word("");
-  bool found_match = false;
   WordVector matches;
   const WordVector &words = store.words;
   const Analysis *analysis = &store.analysis;
-  auto iter =
-      std::upper_bound(words.begin(), words.end(), input, Word::is_shorter);
-  while (true) {
-    if (iter == words.begin()) {
-      // Stop if it is not possible to step back.
-      break;
-    }
+  const auto begin = words.begin();
+  const auto end = words.end();
+  auto iter = std::upper_bound(begin, end, input, Word::is_shorter);
+  while (iter != begin) {
     iter--;
     Word word = *iter;
-    if (found_match) {
+    if (!matches.empty()) {
       // Stop if we reached smaller words.
-      if (Word::is_shorter(word, first_match)) {
+      if (Word::is_shorter(word, *matches.begin())) {
         break;
       }
     }
     if (Word::is_contained(word, input, analysis)) {
-      if (!found_match) {
-        found_match = true;
-        first_match = word;
-      }
       matches.push_back(word);
     }
   }
