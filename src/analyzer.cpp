@@ -19,7 +19,7 @@ struct IndexScore {
   size_t index = 0;
   double score = 0;
 
-  bool operator<(const IndexScore &other) { return score < other.score; }
+  bool operator<(const IndexScore &other) const { return score < other.score; }
 };
 
 /**
