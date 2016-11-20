@@ -24,26 +24,7 @@ class LetterCount {
 
   bool operator<(const LetterCount &other) const;
 
-  static bool is_contained(const LetterCount &a, const LetterCount &b,
-                           Analysis *analysis) {
-    if (a.letter_count > b.letter_count) {
-      return false;
-    }
-    size_t remaining = b.letter_count - a.letter_count;
-    for (size_t i = 0; i < alphabet_size; i++) {
-      const size_t x = analysis == nullptr ? i : analysis->best_index(i);
-      if (a.counters[x] > b.counters[x]) {
-        return false;
-      }
-      // By catching excessive differences we may fail early.
-      const size_t difference = b.counters[x] - a.counters[x];
-      if (difference > remaining) {
-        return false;
-      }
-      remaining -= difference;
-    }
-    return true;
-  }
+  bool is_contained(const LetterCount &b, Analysis *analysis) const;
 };
 
 class Word {
@@ -61,13 +42,11 @@ class Word {
 
   std::string to_string() const;
 
-  static bool is_contained(const Word &a, const Word &b, Analysis *analysis) {
-    return LetterCount::is_contained(a.count, b.count, analysis);
-  }
+  static bool is_shorter(const Word &a, const Word &b);
 
-  static bool is_shorter(const Word &a, const Word &b) {
-    return a.word.size() < b.word.size();
-  }
+  static bool is_shorter_and_smaller(const Word &a, const Word &b);
+
+  static bool is_contained(const Word &a, const Word &b, Analysis *analysis);
 };
 
 std::ostream &operator<<(std::ostream &os, const Word &word);

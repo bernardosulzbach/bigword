@@ -7,7 +7,7 @@
 #include "rules.hpp"
 
 void WordStore::compile() {
-  std::sort(words.begin(), words.end(), Word::is_shorter);
+  std::sort(words.begin(), words.end(), Word::is_shorter_and_smaller);
   analysis.compile();
 }
 

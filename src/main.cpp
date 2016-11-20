@@ -104,6 +104,7 @@ static std::vector<Word> find_matches(Word input) {
       matches.push_back(word);
     }
   }
+  std::reverse(matches.begin(), matches.end());
   return matches;
 }
 
