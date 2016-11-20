@@ -75,7 +75,9 @@ std::ostream &operator<<(std::ostream &os, const Analysis &analysis) {
   }
   for (size_t i = 0; i < alphabet_size; i++) {
     os << analysis.best_order[i];
-    os << '\n';
+    if (i + 1 != alphabet_size) {
+      os << '\n';
+    }
   }
   return os;
 }
