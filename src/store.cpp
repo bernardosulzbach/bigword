@@ -40,13 +40,6 @@ static std::string derive_store_name(const std::string &filename) {
   return filename + ".store";
 }
 
-static WordStore recover_word_store(const std::string &store_name) {
-  WordStore store;
-  std::ifstream ifs(store_name);
-  ifs >> store;
-  return store;
-}
-
 static void dump_word_store(const WordStore &store) {
   std::ofstream ofs(store.store_name);
   ofs << store;
@@ -79,15 +72,19 @@ static WordStore make_word_store(const std::string &filename) {
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename) {
-  auto future_digest = std::async(std::launch::async, digest_file, filename);
   const std::string store_filename = derive_store_name(filename);
-  WordStore store = recover_word_store(store_filename);
-  const Digest digest = future_digest.get();
-  if (store.source_digest == digest) {
+  std::ifstream ifs;
+  ifs.open(store_filename);
+  if (ifs.is_open()) {
+    auto future_digest = std::async(std::launch::async, digest_file, filename);
+    WordStore store;
+    ifs >> store;
     return store;
-  } else {
-    store = make_word_store(filename);
-    dump_word_store(store);
-    return store;
+    if (store.source_digest == future_digest.get()) {
+      return store;
+    }
   }
+  WordStore store = make_word_store(filename);
+  dump_word_store(store);
+  return store;
 }
