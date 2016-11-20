@@ -78,7 +78,7 @@ static Digest digest_file(const std::string &filename) {
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename) {
-  auto future = std::async(digest_file, filename);
+  auto future = std::async(std::launch::async, digest_file, filename);
   const std::string store_filename = derive_store_name(filename);
   WordStore store = recover_word_store(store_filename);
   const Digest digest = future.get();
