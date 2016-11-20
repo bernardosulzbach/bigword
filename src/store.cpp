@@ -4,6 +4,11 @@
 #include <string>
 #include "rules.hpp"
 
+void WordStore::compile() {
+  std::sort(words.begin(), words.end(), Word::is_shorter);
+  analysis.compile();
+}
+
 static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
   os << store.store_name << '\n';
   os << store.source_digest << '\n';
@@ -54,7 +59,7 @@ static WordStore make_word_store(const std::string &filename) {
     store.words.push_back(Word(string));
     store.analysis.analyze(string);
   }
-  std::sort(store.words.begin(), store.words.end(), Word::is_shorter);
+  store.compile();
   return store;
 }
 

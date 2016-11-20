@@ -10,16 +10,17 @@
  * Analze the words read to later improve filtering speed.
  */
 class Analysis {
+ private:
   // How many words have at least one occurrence of this letter.
   uint32_t words = 0;
   uint32_t word_count[alphabet_size] = {0};
   size_t best_order[alphabet_size] = {0};
-  bool best_order_is_valid = true;
 
   void find_best_order();
 
  public:
   void analyze(const std::string word);
+  void compile();
   size_t best_index(const size_t comparison);
 
   friend std::ostream &operator<<(std::ostream &os, const Analysis &analysis);

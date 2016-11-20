@@ -17,6 +17,9 @@ struct WordStore {
   Digest source_digest;
   Analysis analysis;
   std::vector<Word> words;
+
+  void include(const std::string &string);
+  void compile();
 };
 
 /**

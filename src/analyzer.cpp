@@ -5,7 +5,6 @@
 #include "rules.hpp"
 
 void Analysis::analyze(const std::string word) {
-  best_order_is_valid = false;
   words++;
   for (const char letter : word) {
     if (is_valid_letter(letter)) {
@@ -13,6 +12,8 @@ void Analysis::analyze(const std::string word) {
     }
   }
 }
+
+void Analysis::compile() { find_best_order(); }
 
 struct IndexScore {
   size_t index = 0;
@@ -62,9 +63,6 @@ void Analysis::find_best_order() {
 }
 
 size_t Analysis::best_index(const size_t comparison) {
-  if (!best_order_is_valid) {
-    find_best_order();
-  }
   return best_order[comparison];
 }
 
@@ -79,7 +77,6 @@ std::ostream &operator<<(std::ostream &os, const Analysis &analysis) {
     os << analysis.best_order[i];
     os << '\n';
   }
-  os << analysis.best_order_is_valid;
   return os;
 }
 
@@ -91,6 +88,5 @@ std::istream &operator>>(std::istream &is, Analysis &analysis) {
   for (size_t i = 0; i < alphabet_size; i++) {
     is >> analysis.best_order[i];
   }
-  is >> analysis.best_order_is_valid;
   return is;
 }
