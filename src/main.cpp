@@ -47,7 +47,7 @@ static WordVector read_input(int argc, char *argv[]) {
   return words;
 }
 
-static WordVector find_matches(const WordStore &store, const Word input) {
+static WordVector find_matches(const WordStore &store, Word input) {
   Word first_match = Word("");
   bool found_match = false;
   WordVector matches;
@@ -61,7 +61,7 @@ static WordVector find_matches(const WordStore &store, const Word input) {
       break;
     }
     iter--;
-    const auto word = *iter;
+    Word word = *iter;
     if (found_match) {
       // Stop if we reached smaller words.
       if (Word::is_shorter(word, first_match)) {

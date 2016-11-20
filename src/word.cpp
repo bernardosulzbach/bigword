@@ -17,7 +17,12 @@ static void report_unsupported_letter(const char letter) {
 
 std::string get_words_filename() { return "words.txt"; }
 
-LetterCount::LetterCount(const std::string &word) {
+LetterCount::LetterCount() {}
+
+void LetterCount::initialize(const std::string &word) {
+  if (letter_count > 0) {
+    return;
+  }
   for (const char letter : word) {
     if (is_valid_letter(letter)) {
       counters[get_letter_index(letter)]++;
@@ -56,9 +61,7 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
   return true;
 }
 
-Word::Word(const std::string &string) : count(LetterCount(string)) {
-  word = string;
-}
+Word::Word(const std::string &string) { word = string; }
 
 bool Word::operator==(const Word &other) const {
   return word == other.word && count == other.count;
@@ -67,6 +70,11 @@ bool Word::operator==(const Word &other) const {
 bool Word::operator<(const Word &other) const { return word < other.word; }
 
 std::string Word::to_string() const { return word; }
+
+LetterCount Word::get_count() {
+  count.initialize(word);
+  return count;
+}
 
 bool Word::is_shorter(const Word &a, const Word &b) {
   return a.word.size() < b.word.size();
@@ -82,8 +90,8 @@ bool Word::is_shorter_and_smaller(const Word &a, const Word &b) {
   }
 }
 
-bool Word::is_contained(const Word &a, const Word &b, const Analysis *an) {
-  return a.count.is_contained(b.count, an);
+bool Word::is_contained(Word &a, Word &b, const Analysis *an) {
+  return a.get_count().is_contained(b.get_count(), an);
 }
 
 std::ostream &operator<<(std::ostream &os, const Word &word) {

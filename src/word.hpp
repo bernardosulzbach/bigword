@@ -18,7 +18,9 @@ class LetterCount {
   uint8_t counters[alphabet_size] = {0};
 
  public:
-  LetterCount(const std::string &word);
+  LetterCount();
+
+  void initialize(const std::string &word);
 
   bool operator==(const LetterCount &other) const;
 
@@ -39,13 +41,15 @@ class Word {
 
   bool operator<(const Word &other) const;
 
+  LetterCount get_count();
+
   std::string to_string() const;
 
   static bool is_shorter(const Word &a, const Word &b);
 
   static bool is_shorter_and_smaller(const Word &a, const Word &b);
 
-  static bool is_contained(const Word &a, const Word &b, const Analysis *an);
+  static bool is_contained(Word &a, Word &b, const Analysis *an);
 };
 
 std::ostream &operator<<(std::ostream &os, const Word &word);
