@@ -27,15 +27,23 @@ struct IndexScore {
  * This function runs in O(n) with respect to alphabet size.
  */
 void Analysis::find_best_order() {
-  // Reasoning
-  // ---------
+  // Old Reasoning
+  // -------------
   // Letters which are present in most words do not help.
   // Letters which are absent in most words do not help.
   // Letters which are present in about half the words are best.
   //
-  // Formula
-  // -------
+  // Old Formula
+  // -----------
   // Score = abs(0.5 - frequency)
+  //
+  // Results
+  // -------
+  // Empirically, I was wrong. Common letters improve comparison performance!
+  //
+  // Current Formula
+  // ---------------
+  // Score = 1.0 - frequency
   //
   // Avoid divisions by zero.
   if (words == 0) {
@@ -45,7 +53,7 @@ void Analysis::find_best_order() {
   const double total_words = static_cast<double>(words);
   for (size_t i = 0; i < alphabet_size; i++) {
     scores[i].index = i;
-    scores[i].score = std::fabs(0.5 - word_count[i] / total_words);
+    scores[i].score = 1.0 - word_count[i] / total_words;
   }
   std::sort(scores, scores + alphabet_size);
   for (size_t i = 0; i < alphabet_size; i++) {
