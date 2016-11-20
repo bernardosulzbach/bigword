@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <vector>
+#include "rules.hpp"
 
 static void report_unsupported_letter(const char letter) {
   std::cerr << "Found unsupported letter:";
@@ -17,31 +17,10 @@ static void report_unsupported_letter(const char letter) {
 
 std::string get_words_filename() { return "words.txt"; }
 
-bool is_countable_letter(const char letter) {
-  return letter >= 'a' && letter <= 'z';
-}
-
-bool is_valid_word(const std::string &word) {
-  for (char letter : word) {
-    if (!is_countable_letter(letter)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool is_big_enough(const std::string &word, const std::string &input) {
-  return word.size() <= input.size();
-}
-
-size_t LetterCount::get_letter_counter(const char letter) const {
-  return static_cast<size_t>(letter - 'a');
-}
-
 LetterCount::LetterCount(const std::string &word) {
   for (const char letter : word) {
-    if (is_countable_letter(letter)) {
-      counters[get_letter_counter(letter)]++;
+    if (is_valid_letter(letter)) {
+      counters[get_letter_index(letter)]++;
       letter_count++;
     } else {
       report_unsupported_letter(letter);

@@ -1,36 +1,7 @@
 #include "digest.hpp"
 #include <openssl/evp.h>
 
-bool Digest::operator==(const Digest &other) const {
-  if (length != other.length) {
-    return false;
-  }
-  for (size_t i = 0; i < static_cast<size_t>(length); i++) {
-    if (digest[i] != other.digest[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
-std::ostream &operator<<(std::ostream &os, const Digest &digest) {
-  os << digest.length;
-  os << '\n';
-  for (size_t i = 0; i < EVP_MAX_MD_SIZE; i++) {
-    os << digest.digest[i];
-  }
-  return os;
-}
-
-std::istream &operator>>(std::istream &is, Digest &digest) {
-  is >> digest.length;
-  for (size_t i = 0; i < EVP_MAX_MD_SIZE; i++) {
-    is >> digest.digest[i];
-  }
-  return is;
-}
-
-Digest digest_file(const std::string &filename) {
+Digest::Digest(const std::string &filename) {
   EVP_MD_CTX *mdctx;
   const size_t buffer_size = 4096;
   unsigned char buffer[buffer_size];
@@ -45,8 +16,59 @@ Digest digest_file(const std::string &filename) {
     EVP_DigestUpdate(mdctx, buffer, read_bytes);
     digesting = read_bytes == buffer_size;
   }
-  Digest digest;
-  EVP_DigestFinal_ex(mdctx, digest.digest, &digest.length);
+  EVP_DigestFinal_ex(mdctx, digest, &length);
   EVP_MD_CTX_destroy(mdctx);
-  return digest;
+}
+
+bool Digest::operator==(const Digest &other) const {
+  if (length != other.length) {
+    return false;
+  }
+  for (size_t i = 0; i < static_cast<size_t>(length); i++) {
+    if (digest[i] != other.digest[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+static void write_base_16(std::ostream &os, const int x) {
+  if (x >= 10) {
+    os << static_cast<char>('a' + (x - 10));
+  } else {
+    os << static_cast<char>('0' + x);
+  }
+}
+
+static int read_base_16(std::istream &is) {
+  char c;
+  is >> c;
+  if (c >= 'a') {
+    return 10 + (c - 'a');
+  } else {
+    return c - '0';
+  }
+}
+
+std::ostream &operator<<(std::ostream &os, const Digest &digest) {
+  os << digest.length << '\n';
+  for (size_t i = 0; i < digest.length; i++) {
+    // Give a proper representation of the hash.
+    const int double_byte = static_cast<int>(digest.digest[i]);
+    write_base_16(os, double_byte / 16);
+    write_base_16(os, double_byte % 16);
+  }
+  return os;
+}
+
+std::istream &operator>>(std::istream &is, Digest &digest) {
+  is >> digest.length;
+  // Must erase the newline we wrote before.
+  is.ignore(1000, '\n');
+  std::fill(digest.digest, digest.digest + Digest::maximum_size, 0);
+  for (size_t i = 0; i < digest.length; i++) {
+    digest.digest[i] = 16 * read_base_16(is);
+    digest.digest[i] += read_base_16(is);
+  }
+  return is;
 }

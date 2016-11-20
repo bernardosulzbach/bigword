@@ -7,19 +7,13 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include "analyzer.hpp"
+#include "rules.hpp"
 
 std::string get_words_filename();
 
-bool is_countable_letter(const char letter);
-
-bool is_valid_word(const std::string &word);
-
-bool is_big_enough(const std::string &word, const std::string &input);
-
 class LetterCount {
  private:
-  static const size_t alphabet_size = 'z' - 'a' + 1;
-
   size_t letter_count = 0;
   uint8_t counters[alphabet_size] = {0};
 
@@ -32,17 +26,19 @@ class LetterCount {
 
   bool operator<(const LetterCount &other) const;
 
-  static bool is_contained(const LetterCount &a, const LetterCount &b) {
+  static bool is_contained(const LetterCount &a, const LetterCount &b,
+                           Analysis *analysis) {
     if (a.letter_count > b.letter_count) {
       return false;
     }
     size_t remaining = b.letter_count - a.letter_count;
     for (size_t i = 0; i < alphabet_size; i++) {
-      if (a.counters[i] > b.counters[i]) {
+      const size_t x = analysis == nullptr ? i : analysis->best_index(i);
+      if (a.counters[x] > b.counters[x]) {
         return false;
       }
       // By catching excessive differences we may fail early.
-      const size_t difference = b.counters[i] - a.counters[i];
+      const size_t difference = b.counters[x] - a.counters[x];
       if (difference > remaining) {
         return false;
       }
@@ -67,8 +63,8 @@ class Word {
 
   std::string to_string() const;
 
-  static bool is_contained(const Word &a, const Word &b) {
-    return LetterCount::is_contained(a.count, b.count);
+  static bool is_contained(const Word &a, const Word &b, Analysis *analysis) {
+    return LetterCount::is_contained(a.count, b.count, analysis);
   }
 
   static bool compare_by_size(const Word &a, const Word &b) {

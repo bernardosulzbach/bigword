@@ -74,16 +74,12 @@ static Word read_input(int argc, char *argv[]) {
   return Word("");
 }
 
-static std::vector<Word> read_words() {
-  const WordStore store = load_word_store(get_words_filename());
-  return store.words;
-}
-
-static std::vector<Word> find_matches(Word input, std::vector<Word> words) {
+static std::vector<Word> find_matches(Word input) {
+  WordStore store = load_word_store(get_words_filename());
   std::vector<Word> word_vector;
   Word match = Word("");
   bool found = false;
-  for (auto iter = words.rbegin(); iter != words.rend(); iter++) {
+  for (auto iter = store.words.rbegin(); iter != store.words.rend(); iter++) {
     const auto word = *iter;
     if (found) {
       // Stop if we reached smaller words.
@@ -91,7 +87,7 @@ static std::vector<Word> find_matches(Word input, std::vector<Word> words) {
         break;
       }
     }
-    if (Word::is_contained(word, input)) {
+    if (Word::is_contained(word, input, &store.analysis)) {
       if (!found) {
         found = true;
         // Update the first match.
@@ -118,8 +114,7 @@ int main(int argc, char *argv[]) {
     print_usage(std::string(argv[0]));
     return 0;
   }
-  const std::vector<Word> words = read_words();
-  const std::vector<Word> matches = find_matches(input, words);
+  const std::vector<Word> matches = find_matches(input);
   const TimePoint end;
   const Duration duration(start, end);
   for (Word match : matches) {

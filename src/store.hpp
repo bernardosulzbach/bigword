@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "analyzer.hpp"
 #include "digest.hpp"
 #include "word.hpp"
 
@@ -14,6 +15,7 @@
 struct WordStore {
   std::string store_name;
   Digest source_digest;
+  Analysis analysis;
   std::vector<Word> words;
 };
 

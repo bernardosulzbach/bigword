@@ -12,9 +12,11 @@ endif ()
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 add_executable (bigword
+    src/analyzer.hpp src/analyzer.cpp
+    src/clock.hpp src/clock.cpp
     src/digest.hpp src/digest.cpp
     src/option.hpp src/option.cpp
-    src/clock.hpp src/clock.cpp
+    src/rules.hpp src/rules.cpp
     src/store.hpp src/store.cpp
     src/word.hpp src/word.cpp
     src/main.cpp)
