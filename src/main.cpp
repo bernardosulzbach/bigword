@@ -47,7 +47,7 @@ static WordVector read_input(int argc, char *argv[]) {
   return words;
 }
 
-static WordVector find_matches(WordStore store, Word input) {
+static WordVector find_matches(WordStore &store, Word input) {
   Word first_match = Word("");
   bool found_match = false;
   WordVector matches;
