@@ -1,9 +1,10 @@
 #include "digest.hpp"
 #include <openssl/evp.h>
 
+static const size_t buffer_size = 8192;
+
 Digest::Digest(const std::string &filename) {
   EVP_MD_CTX *mdctx;
-  const size_t buffer_size = 4096;
   unsigned char buffer[buffer_size];
   bool digesting = true;
   mdctx = EVP_MD_CTX_create();
