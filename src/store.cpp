@@ -29,9 +29,9 @@ static std::istream &operator>>(std::istream &is, WordStore &store) {
   is >> store.analysis;
   is >> word_count;
   store.words.reserve(word_count);
-  Word word;
-  while (is >> word) {
-    store.words.push_back(word);
+  std::string string;
+  while (is >> string) {
+    store.words.push_back(Word(string));
   }
   return is;
 }
