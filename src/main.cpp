@@ -47,12 +47,12 @@ static WordVector read_input(int argc, char *argv[]) {
   return words;
 }
 
-static WordVector find_matches(WordStore &store, Word input) {
+static WordVector find_matches(const WordStore &store, const Word input) {
   Word first_match = Word("");
   bool found_match = false;
   WordVector matches;
   const WordVector &words = store.words;
-  Analysis *analysis = &store.analysis;
+  const Analysis *analysis = &store.analysis;
   auto iter =
       std::upper_bound(words.begin(), words.end(), input, Word::is_shorter);
   while (true) {

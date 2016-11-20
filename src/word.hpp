@@ -24,7 +24,7 @@ class LetterCount {
 
   bool operator<(const LetterCount &other) const;
 
-  bool is_contained(const LetterCount &b, Analysis *analysis) const;
+  bool is_contained(const LetterCount &o, const Analysis *an) const;
 };
 
 class Word {
@@ -33,7 +33,6 @@ class Word {
   LetterCount count;
 
  public:
-  Word();
   Word(const std::string &string);
 
   bool operator==(const Word &other) const;
@@ -46,7 +45,7 @@ class Word {
 
   static bool is_shorter_and_smaller(const Word &a, const Word &b);
 
-  static bool is_contained(const Word &a, const Word &b, Analysis *analysis);
+  static bool is_contained(const Word &a, const Word &b, const Analysis *an);
 };
 
 std::ostream &operator<<(std::ostream &os, const Word &word);

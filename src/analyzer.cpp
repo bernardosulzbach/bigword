@@ -62,7 +62,7 @@ void Analysis::find_best_order() {
   }
 }
 
-size_t Analysis::best_index(const size_t comparison) {
+size_t Analysis::best_index(const size_t comparison) const {
   return best_order[comparison];
 }
 

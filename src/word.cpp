@@ -36,18 +36,18 @@ bool LetterCount::operator<(const LetterCount &other) const {
   return letter_count < other.letter_count;
 }
 
-bool LetterCount::is_contained(const LetterCount &other, Analysis *a) const {
-  if (letter_count > other.letter_count) {
+bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
+  if (letter_count > o.letter_count) {
     return false;
   }
-  size_t remaining = other.letter_count - letter_count;
+  size_t remaining = o.letter_count - letter_count;
   for (size_t i = 0; i < alphabet_size; i++) {
-    const size_t x = a == nullptr ? i : a->best_index(i);
-    if (counters[x] > other.counters[x]) {
+    const size_t x = an == nullptr ? i : an->best_index(i);
+    if (counters[x] > o.counters[x]) {
       return false;
     }
     // By catching excessive differences we may fail early.
-    const size_t difference = other.counters[x] - counters[x];
+    const size_t difference = o.counters[x] - counters[x];
     if (difference > remaining) {
       return false;
     }
@@ -55,8 +55,6 @@ bool LetterCount::is_contained(const LetterCount &other, Analysis *a) const {
   }
   return true;
 }
-
-Word::Word() : Word("") {}
 
 Word::Word(const std::string &string) : count(LetterCount(string)) {
   word = string;
@@ -84,8 +82,8 @@ bool Word::is_shorter_and_smaller(const Word &a, const Word &b) {
   }
 }
 
-bool Word::is_contained(const Word &a, const Word &b, Analysis *analysis) {
-  return a.count.is_contained(b.count, analysis);
+bool Word::is_contained(const Word &a, const Word &b, const Analysis *an) {
+  return a.count.is_contained(b.count, an);
 }
 
 std::ostream &operator<<(std::ostream &os, const Word &word) {

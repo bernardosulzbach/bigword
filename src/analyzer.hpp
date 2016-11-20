@@ -21,7 +21,7 @@ class Analysis {
  public:
   void analyze(const std::string word);
   void compile();
-  size_t best_index(const size_t comparison);
+  size_t best_index(const size_t comparison) const;
 
   friend std::ostream &operator<<(std::ostream &os, const Analysis &analysis);
   friend std::istream &operator>>(std::istream &is, Analysis &analysis);
