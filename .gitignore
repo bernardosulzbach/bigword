@@ -1,9 +1,10 @@
-# LLVM
-compile_commands.json
-
 # YouCompleteMe
 .ycm_extra_conf.py
 .ycm_extra_conf.pyc
 
-# Binary
+# Build tree
 build/
+bld/
+
+# Convenience links
+compile_commands.json

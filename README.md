@@ -7,8 +7,8 @@ An application to find words in a dictionary from a multiset of letters.
 ## Building
 
 ```bash
-$ mkdir build
-$ cd build
+$ mkdir bld 
+$ cd bld
 $ cmake ..
 $ make
 ```
@@ -22,4 +22,3 @@ $ ./bigword abcdefghij
 $ ./bigword aeioubsdlinux
 > unoxidisable
 ```
-
