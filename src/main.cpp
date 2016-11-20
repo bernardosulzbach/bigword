@@ -76,27 +76,35 @@ static Word read_input(int argc, char *argv[]) {
 
 static std::vector<Word> find_matches(Word input) {
   WordStore store = load_word_store(get_words_filename());
-  std::vector<Word> word_vector;
-  Word match = Word("");
-  bool found = false;
-  for (auto iter = store.words.rbegin(); iter != store.words.rend(); iter++) {
+  Word first_match = Word("");
+  bool found_match = false;
+  std::vector<Word> matches;
+  const std::vector<Word> &words = store.words;
+  Analysis *analysis = &store.analysis;
+  auto iter =
+      std::upper_bound(words.begin(), words.end(), input, Word::is_shorter);
+  while (true) {
+    if (iter == words.begin()) {
+      // Stop if it is not possible to step back.
+      break;
+    }
+    iter--;
     const auto word = *iter;
-    if (found) {
+    if (found_match) {
       // Stop if we reached smaller words.
-      if (Word::compare_by_size(word, match)) {
+      if (Word::is_shorter(word, first_match)) {
         break;
       }
     }
-    if (Word::is_contained(word, input, &store.analysis)) {
-      if (!found) {
-        found = true;
-        // Update the first match.
-        match = word;
+    if (Word::is_contained(word, input, analysis)) {
+      if (!found_match) {
+        found_match = true;
+        first_match = word;
       }
-      word_vector.push_back(word);
+      matches.push_back(word);
     }
   }
-  return word_vector;
+  return matches;
 }
 
 int main(int argc, char *argv[]) {

@@ -54,7 +54,7 @@ static WordStore make_word_store(const std::string &filename) {
     store.words.push_back(Word(string));
     store.analysis.analyze(string);
   }
-  std::sort(store.words.begin(), store.words.end(), Word::compare_by_size);
+  std::sort(store.words.begin(), store.words.end(), Word::is_shorter);
   return store;
 }
 

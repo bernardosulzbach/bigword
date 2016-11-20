@@ -67,7 +67,7 @@ class Word {
     return LetterCount::is_contained(a.count, b.count, analysis);
   }
 
-  static bool compare_by_size(const Word &a, const Word &b) {
+  static bool is_shorter(const Word &a, const Word &b) {
     return a.word.size() < b.word.size();
   }
 };
