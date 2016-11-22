@@ -19,6 +19,7 @@ add_executable (bigword
     src/rules.hpp src/rules.cpp
     src/store.hpp src/store.cpp
     src/word.hpp src/word.cpp
+    src/data.hpp src/data.cpp
     src/main.cpp)
 
 find_package (OpenSSL REQUIRED)
