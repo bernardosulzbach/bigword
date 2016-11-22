@@ -15,7 +15,9 @@ static void report_unsupported_letter(const char letter) {
   std::cerr << '\n';
 }
 
-std::string get_words_filename() { return "words.txt"; }
+std::string get_words_filename() {
+  return "words.txt";
+}
 
 LetterCount::LetterCount() {}
 
@@ -61,15 +63,21 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
   return true;
 }
 
-Word::Word(const std::string &string) { word = string; }
+Word::Word(const std::string &string) {
+  word = string;
+}
 
 bool Word::operator==(const Word &other) const {
   return word == other.word && count == other.count;
 }
 
-bool Word::operator<(const Word &other) const { return word < other.word; }
+bool Word::operator<(const Word &other) const {
+  return word < other.word;
+}
 
-std::string Word::to_string() const { return word; }
+std::string Word::to_string() const {
+  return word;
+}
 
 LetterCount Word::get_count() {
   count.initialize(word);

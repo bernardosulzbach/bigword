@@ -13,13 +13,17 @@ void Analysis::analyze(const std::string word) {
   }
 }
 
-void Analysis::compile() { find_best_order(); }
+void Analysis::compile() {
+  find_best_order();
+}
 
 struct IndexScore {
   size_t index = 0;
   double score = 0;
 
-  bool operator<(const IndexScore &other) const { return score < other.score; }
+  bool operator<(const IndexScore &other) const {
+    return score < other.score;
+  }
 };
 
 /**

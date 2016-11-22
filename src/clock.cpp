@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 
-TimePoint::TimePoint() { now = std::chrono::high_resolution_clock::now(); }
+TimePoint::TimePoint() {
+  now = std::chrono::high_resolution_clock::now();
+}
 
 Duration::Duration(TimePoint begin, TimePoint end) {
   duration = end.now - begin.now;
