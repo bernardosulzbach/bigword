@@ -30,4 +30,4 @@ target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_SOURCE_DIR}/lfs/words.txt ${CMAKE_BINARY_DIR}/words.txt)
+    ${CMAKE_SOURCE_DIR}/lfs/en/words.txt ${CMAKE_BINARY_DIR}/words.txt)
