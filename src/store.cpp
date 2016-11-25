@@ -79,7 +79,6 @@ WordStore load_word_store(const std::string &filename) {
     auto future_digest = std::async(std::launch::async, digest_file, filename);
     WordStore store;
     ifs >> store;
-    return store;
     if (store.source_digest == future_digest.get()) {
       return store;
     }
