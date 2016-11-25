@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include "data.hpp"
+#include "linestream.hpp"
 #include "rules.hpp"
 
 static void report_unsupported_letter(const char letter) {
@@ -63,8 +65,9 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
   return true;
 }
 
-Word::Word(const std::string &string) {
+Word::Word(const std::string &string, const size_t line) {
   word = string;
+  line_number = line;
 }
 
 bool Word::operator==(const Word &other) const {
@@ -75,13 +78,17 @@ bool Word::operator<(const Word &other) const {
   return word < other.word;
 }
 
+LetterCount Word::get_count() {
+  count.initialize(word);
+  return count;
+}
+
 std::string Word::to_string() const {
   return word;
 }
 
-LetterCount Word::get_count() {
-  count.initialize(word);
-  return count;
+size_t Word::get_line_number() const {
+  return line_number;
 }
 
 bool Word::is_shorter(const Word &a, const Word &b) {
@@ -107,9 +114,14 @@ std::ostream &operator<<(std::ostream &os, const Word &word) {
   return os;
 }
 
-std::istream &operator>>(std::istream &is, Word &word) {
-  std::string string;
-  is >> string;
-  word = Word(string);
-  return is;
+void dump_word_to_store(std::ostream &os, const Word &word) {
+  os << word.get_line_number() << '\n';
+  dump_safe_string(os, word.to_string());
+}
+
+Word read_word_from_store(std::istream &is) {
+  LineNumber line_number;
+  is >> line_number;
+  std::string string = read_safe_string(is);
+  return Word(string, line_number);
 }

@@ -127,7 +127,11 @@ int main(int argc, char *argv[]) {
     }
     std::cout << '.' << '\n';
     for (Word match : matches) {
-      std::cout << match << '\n';
+      if (options.is_printing_line_numbers()) {
+        std::cout << match.get_line_number() << ':';
+      }
+      std::cout << match;
+      std::cout << '\n';
     }
   }
   return 0;

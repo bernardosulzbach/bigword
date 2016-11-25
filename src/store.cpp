@@ -2,9 +2,11 @@
 #include <openssl/evp.h>
 #include <fstream>
 #include <future>
+#include <iostream>
 #include <string>
 #include <thread>
 #include "data.hpp"
+#include "linestream.hpp"
 #include "rules.hpp"
 
 void WordStore::compile() {
@@ -18,7 +20,7 @@ static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
   os << store.analysis << '\n';
   os << store.words.size() << '\n';
   for (Word word : store.words) {
-    dump_safe_string(os, word.to_string());
+    dump_word_to_store(os, word);
   }
   return os;
 }
@@ -31,7 +33,7 @@ static std::istream &operator>>(std::istream &is, WordStore &store) {
   is >> word_count;
   store.words.reserve(word_count);
   for (size_t i = 0; i < word_count; i++) {
-    store.words.push_back(Word(read_safe_string(is)));
+    store.words.push_back(read_word_from_store(is));
   }
   return is;
 }
@@ -54,13 +56,17 @@ static WordStore make_word_store(const std::string &filename) {
   auto future_digest = std::async(std::launch::async, digest_file, filename);
   WordStore store;
   store.store_name = derive_store_name(filename);
-  std::string string;
   std::ifstream ifs(filename);
-  while (ifs >> string) {
+  LineStream line_stream(ifs);
+  std::istream is(&line_stream);
+  while (is) {
+    std::string string;
+    is >> string;
     if (!is_valid_word(string)) {
       continue;
     }
-    store.words.push_back(Word(string));
+    const LineNumber line_number = line_stream.get_line_number();
+    store.words.push_back(Word(string, line_number));
     store.analysis.analyze(string);
   }
   store.source_digest = future_digest.get();
