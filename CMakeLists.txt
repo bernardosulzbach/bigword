@@ -19,16 +19,15 @@ add_executable (bigword
     src/rules.hpp src/rules.cpp
     src/store.hpp src/store.cpp
     src/word.hpp src/word.cpp
+    src/data.hpp src/data.cpp
     src/main.cpp)
 
-find_package (Threads REQUIRED)
 find_package (OpenSSL REQUIRED)
-if (OPENSSL_FOUND)
-    include_directories (${OPENSSL_INCLUDE_DIRS} ${THREADS_INCLUDE_DIRS})
-    target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-endif ()
+find_package (Threads REQUIRED)
+include_directories (${OPENSSL_INCLUDE_DIRS} ${THREADS_INCLUDE_DIRS})
+target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_SOURCE_DIR}/lfs/words.txt ${CMAKE_BINARY_DIR}/words.txt)
+    ${CMAKE_SOURCE_DIR}/lfs/en/words.txt ${CMAKE_BINARY_DIR}/words.txt)

@@ -4,6 +4,7 @@
 #include <future>
 #include <string>
 #include <thread>
+#include "data.hpp"
 #include "rules.hpp"
 
 void WordStore::compile() {
@@ -12,26 +13,25 @@ void WordStore::compile() {
 }
 
 static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
-  os << store.store_name << '\n';
+  dump_unsafe_string(os, store.store_name);
   os << store.source_digest << '\n';
   os << store.analysis << '\n';
   os << store.words.size() << '\n';
   for (Word word : store.words) {
-    os << word << '\n';
+    dump_safe_string(os, word.to_string());
   }
   return os;
 }
 
 static std::istream &operator>>(std::istream &is, WordStore &store) {
   size_t word_count = 0;
-  is >> store.store_name;
+  store.store_name = read_unsafe_string(is);
   is >> store.source_digest;
   is >> store.analysis;
   is >> word_count;
   store.words.reserve(word_count);
-  std::string string;
-  while (is >> string) {
-    store.words.push_back(Word(string));
+  for (size_t i = 0; i < word_count; i++) {
+    store.words.push_back(Word(read_safe_string(is)));
   }
   return is;
 }
@@ -79,7 +79,6 @@ WordStore load_word_store(const std::string &filename) {
     auto future_digest = std::async(std::launch::async, digest_file, filename);
     WordStore store;
     ifs >> store;
-    return store;
     if (store.source_digest == future_digest.get()) {
       return store;
     }

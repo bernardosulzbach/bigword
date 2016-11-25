@@ -13,13 +13,17 @@ void Analysis::analyze(const std::string word) {
   }
 }
 
-void Analysis::compile() { find_best_order(); }
+void Analysis::compile() {
+  find_best_order();
+}
 
 struct IndexScore {
   size_t index = 0;
   double score = 0;
 
-  bool operator<(const IndexScore &other) const { return score < other.score; }
+  bool operator<(const IndexScore &other) const {
+    return score < other.score;
+  }
 };
 
 /**
@@ -62,7 +66,7 @@ void Analysis::find_best_order() {
   }
 }
 
-size_t Analysis::best_index(const size_t comparison) {
+size_t Analysis::best_index(const size_t comparison) const {
   return best_order[comparison];
 }
 

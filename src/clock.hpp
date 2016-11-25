@@ -2,6 +2,7 @@
 #define CLOCK_HPP
 
 #include <chrono>
+#include <string>
 
 class TimePoint {
  public:
@@ -16,5 +17,9 @@ class Duration {
   Duration(TimePoint begin, TimePoint end);
   double to_nanoseconds() const;
 };
+
+void write_time_with_unit(const uint64_t number, std::string name);
+
+void write_time(const double nanoseconds);
 
 #endif
