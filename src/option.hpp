@@ -25,14 +25,13 @@ class OptionList {
  private:
   std::map<std::string, Option> map;
   void add_option(Option option);
+  bool get_value(const std::string &name) const;
 
  public:
   OptionList();
-
   void parse(const std::string &string);
-
-  bool is_timing();
-
+  bool is_timing() const;
+  bool is_printing_line_numbers() const;
   void print_options() const;
 };
 
