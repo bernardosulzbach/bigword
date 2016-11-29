@@ -12,17 +12,26 @@ endif ()
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 add_executable (bigword
-    src/linenumber.hpp
-    src/linestream.hpp src/linestream.cpp
-    src/analyzer.hpp src/analyzer.cpp
-    src/digest.hpp src/digest.cpp
-    src/option.hpp src/option.cpp
-    src/clock.hpp src/clock.cpp
-    src/rules.hpp src/rules.cpp
-    src/store.hpp src/store.cpp
-    src/data.hpp src/data.cpp
-    src/word.hpp src/word.cpp
-    src/main.cpp)
+    sources/linenumber.hpp
+    sources/linestream.hpp
+    sources/linestream.cpp
+    sources/analyzer.hpp
+    sources/analyzer.cpp
+    sources/digest.hpp
+    sources/digest.cpp
+    sources/option.hpp
+    sources/option.cpp
+    sources/clock.hpp
+    sources/clock.cpp
+    sources/rules.hpp
+    sources/rules.cpp
+    sources/store.hpp
+    sources/store.cpp
+    sources/data.hpp
+    sources/data.cpp
+    sources/word.hpp
+    sources/word.cpp
+    sources/main.cpp)
 
 find_package (OpenSSL REQUIRED)
 find_package (Threads REQUIRED)
@@ -32,4 +41,4 @@ target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_SOURCE_DIR}/lfs/en/words.txt ${CMAKE_BINARY_DIR}/words.txt)
+    ${CMAKE_SOURCE_DIR}/data/en/words.txt ${CMAKE_BINARY_DIR}/words.txt)

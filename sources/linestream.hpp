@@ -11,19 +11,19 @@ class LineStream : public std::streambuf {
   std::istream* owner = nullptr;
   LineNumber line_number = 1;
 
-  char buffer;
+  char buffer = '\0';
 
  protected:
   int underflow() {
     // Read the next character.
     const int character = source->sbumpc();
     if (character != EOF) {
-      buffer = character;
-      // Set the read area pointers.
-      setg(&buffer, &buffer, &buffer + 1);
       if (buffer == '\n') {
         line_number++;
       }
+      buffer = character;
+      // Set the read area pointers.
+      setg(&buffer, &buffer, &buffer + 1);
     }
     return character;
   }
