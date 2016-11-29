@@ -5,12 +5,22 @@
 #include <vector>
 #include "clock.hpp"
 
+const OptionValue OptionValue::negative = OptionValue("Negative", 0);
+const OptionValue OptionValue::positive = OptionValue("Positive", 1);
+
 static const std::string option_name_time = "--time";
+static const std::string option_name_source = "--source";
 static const std::string option_name_line_number = "--line-number";
 
+static const std::string default_source_file = "words.txt";
+
 OptionList::OptionList() {
-  add_option(Option(option_name_time, "Output computation times.", false));
-  add_option(Option(option_name_line_number, "Output line numbers.", false));
+  add_option(Option(option_name_time, "Output computation times.",
+                    OptionValue::negative));
+  add_option(Option(option_name_source, "Set the source file.",
+                    OptionValue(default_source_file, 0)));
+  add_option(Option(option_name_line_number, "Output line numbers.",
+                    OptionValue::positive));
 }
 
 void OptionList::add_option(Option option) {
@@ -19,26 +29,31 @@ void OptionList::add_option(Option option) {
 
 void OptionList::parse(const std::string &string) {
   for (auto it = map.begin(); it != map.end(); it++) {
-    if (it->first == string) {
-      it->second.value = true;
+    // Setting boolean options.
+    if (it->first == string && it->second.value.is_boolean()) {
+      it->second.value = OptionValue::positive;
     }
   }
 }
 
-bool OptionList::get_value(const std::string &string) const {
+OptionValue OptionList::get_value(const std::string &string) const {
   const auto iter = map.find(string);
   if (iter == map.end()) {
-    return false;
+    return OptionValue::negative;
   }
   return iter->second.value;
 }
 
 bool OptionList::is_timing() const {
-  return get_value(option_name_time);
+  return get_value(option_name_time).to_boolean();
 }
 
 bool OptionList::is_printing_line_numbers() const {
-  return get_value(option_name_line_number);
+  return get_value(option_name_line_number).to_boolean();
+}
+
+std::string OptionList::get_source_file() const {
+  return get_value(option_name_source).text;
 }
 
 void OptionList::print_options() const {

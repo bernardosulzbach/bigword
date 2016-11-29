@@ -7,8 +7,8 @@
 
 class LineStream : public std::streambuf {
  private:
-  std::streambuf* source;
-  std::istream* owner = nullptr;
+  std::streambuf *source;
+  std::istream *owner = nullptr;
   LineNumber line_number = 1;
 
   char buffer = '\0';
@@ -29,9 +29,9 @@ class LineStream : public std::streambuf {
   }
 
  public:
-  LineStream(std::streambuf* source) : source(source) {}
+  LineStream(std::streambuf *source) : source(source) {}
 
-  LineStream(std::istream& stream_owner) {
+  LineStream(std::istream &stream_owner) {
     // Set the owner buffer to this object.
     owner = &stream_owner;
     // Keep track of the previous buffer so we can restore it in the end.

@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     print_usage(std::string(argv[0]), options);
     return 0;
   }
-  WordStore store = load_word_store(get_words_filename());
+  WordStore store = load_word_store(options.get_source_file());
   if (options.is_timing()) {
     write_duration("loading", Duration(loading_start, TimePoint()));
   }
