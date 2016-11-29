@@ -7,7 +7,7 @@
 /**
  * An analysis of the most efficient way to compare two letter counts.
  *
- * Analze the words read to later improve filtering speed.
+ * Analyze the words read to later improve filtering speed.
  */
 class Analysis {
  private:
