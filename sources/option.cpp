@@ -10,20 +10,33 @@ const OptionValue OptionValue::negative = OptionValue("Negative", 0);
 const OptionValue OptionValue::positive = OptionValue("Positive", 1);
 
 static const std::string option_name_time = "--time";
+static const std::string option_info_time = "Output computation times.";
+
 static const std::string option_name_source = "--source";
+static const std::string option_info_source = "Set the source file.";
+
 static const std::string option_name_line_number = "--line-number";
+static const std::string option_info_line_number = "Output line numbers.";
+
+std::string OptionInfo::get_name() const {
+  return name;
+}
+
+std::string OptionInfo::get_info() const {
+  return info;
+}
 
 OptionList::OptionList() {
-  add_option(Option(option_name_time, "Output computation times.",
-                    OptionValue::negative));
-  add_option(Option(option_name_source, "Set the source file.",
-                    OptionValue(default_source, 0)));
-  add_option(Option(option_name_line_number, "Output line numbers.",
-                    OptionValue::positive));
+  OptionInfo time_info(option_name_time, option_info_time);
+  add_option(Option(time_info, OptionValue::negative));
+  OptionInfo source_info(option_name_source, option_info_source);
+  add_option(Option(source_info, OptionValue(default_source, 0)));
+  OptionInfo line_number_info(option_name_line_number, option_info_line_number);
+  add_option(Option(line_number_info, OptionValue::negative));
 }
 
 void OptionList::add_option(Option option) {
-  map.insert({option.name, option});
+  map.insert({option.info.get_name(), option});
 }
 
 void OptionList::parse(const std::string &string) {
@@ -59,7 +72,10 @@ void OptionList::print_options() const {
   // These will be sorted by option name because maps are sorted.
   for (auto it = map.begin(); it != map.end(); it++) {
     std::cout << std::setw(4) << ' ';
-    std::cout << std::setw(16) << std::left << it->second.name;
-    std::cout << ' ' << it->second.info << '\n';
+    std::cout << std::setw(16) << std::left;
+    std::cout << it->second.info.get_name();
+    std::cout << ' ';
+    std::cout << it->second.info.get_info();
+    std::cout << '\n';
   }
 }

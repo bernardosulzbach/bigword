@@ -9,6 +9,22 @@
 #include "clock.hpp"
 #include "word.hpp"
 
+class OptionInfo {
+  const std::string name;
+  const std::string info;
+
+ public:
+  OptionInfo(const std::string &name, const std::string &info)
+      : name(name), info(info) {}
+
+  bool operator==(const OptionInfo &other) const {
+    return name == other.name && info == other.info;
+  }
+
+  std::string get_name() const;
+  std::string get_info() const;
+};
+
 struct OptionValue {
   static const OptionValue negative;
   static const OptionValue positive;
@@ -26,19 +42,18 @@ struct OptionValue {
   bool is_boolean() const {
     return *this == negative || *this == positive;
   }
+
   bool to_boolean() const {
     return integer != 0;
   }
 };
 
 struct Option {
-  std::string name;
-  std::string info;
+  OptionInfo info;
   OptionValue value;
 
-  Option(const std::string &name, const std::string &info,
-         const OptionValue value)
-      : name(name), info(info), value(value) {}
+  Option(const OptionInfo info, const OptionValue value)
+      : info(info), value(value) {}
 };
 
 class OptionList {
