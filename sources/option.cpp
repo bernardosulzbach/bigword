@@ -44,11 +44,41 @@ void OptionList::add_option(Option option) {
   map.insert({option.info.get_name(), option});
 }
 
+static std::string get_option_name(const std::string &string) {
+  const auto end = std::find(string.begin(), string.end(), '=');
+  return std::string(string.begin(), end);
+}
+
+static std::vector<std::string> get_option_arguments(
+    const std::string &string) {
+  std::vector<std::string> arguments;
+  auto it = std::find(string.begin(), string.end(), '=');
+  if (it == string.end()) {
+    return arguments;
+  }
+  it = std::next(it);
+  while (it != string.end()) {
+    const std::string::const_iterator end = std::find(it, string.end(), ',');
+    arguments.push_back(std::string(it, end));
+    it = end;
+  }
+  return arguments;
+}
+
 void OptionList::parse(const std::string &string) {
+  const std::string option = get_option_name(string);
+  const std::vector<std::string> arguments = get_option_arguments(string);
+  if (arguments.empty()) {
+    for (auto it = map.begin(); it != map.end(); it++) {
+      if (it->first == option && it->second.value.is_boolean()) {
+        it->second.value = OptionValue::positive;
+        return;
+      }
+    }
+  }
   for (auto it = map.begin(); it != map.end(); it++) {
-    // Setting boolean options.
-    if (it->first == string && it->second.value.is_boolean()) {
-      it->second.value = OptionValue::positive;
+    if (it->first == option) {
+      it->second.value = OptionValue(arguments[0], 0);
     }
   }
 }
