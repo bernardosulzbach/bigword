@@ -49,8 +49,7 @@ static std::string get_option_name(const std::string &string) {
   return std::string(string.begin(), end);
 }
 
-static std::vector<std::string> get_option_arguments(
-    const std::string &string) {
+static std::vector<std::string> get_arguments(const std::string &string) {
   std::vector<std::string> arguments;
   auto it = std::find(string.begin(), string.end(), '=');
   if (it == string.end()) {
@@ -67,7 +66,7 @@ static std::vector<std::string> get_option_arguments(
 
 void OptionList::parse(const std::string &string) {
   const std::string option = get_option_name(string);
-  const std::vector<std::string> arguments = get_option_arguments(string);
+  const std::vector<std::string> arguments = get_arguments(string);
   if (arguments.empty()) {
     for (auto it = map.begin(); it != map.end(); it++) {
       if (it->first == option && it->second.value.is_boolean()) {
@@ -101,7 +100,7 @@ bool OptionList::is_printing_line_numbers() const {
 
 bool OptionList::is_printing_configuration() const {
   return get_value(option_name_values).to_boolean();
-};
+}
 
 std::string OptionList::get_source_file() const {
   return get_value(option_name_source).text;
