@@ -3,8 +3,8 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
-#include "configuration.hpp"
 #include "clock.hpp"
+#include "configuration.hpp"
 
 const OptionValue OptionValue::negative = OptionValue("Negative", 0);
 const OptionValue OptionValue::positive = OptionValue("Positive", 1);
