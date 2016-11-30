@@ -98,9 +98,12 @@ int main(int argc, char *argv[]) {
     print_usage(std::string(argv[0]), options);
     return 0;
   }
+  if (options.is_printing_configuration()) {
+    options.print_configuration();
+  }
   const WordVector words = read_input(argc, argv);
-  if (words.empty()) {
-    // Fail if there is no valid input multiset of letters.
+  // Fail if there is no valid input multiset of letters and one is needed.
+  if (words.empty() && !options.is_printing_configuration()) {
     print_usage(std::string(argv[0]), options);
     return 0;
   }

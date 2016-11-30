@@ -15,6 +15,9 @@ static const std::string option_info_time = "Output computation times.";
 static const std::string option_name_source = "--source";
 static const std::string option_info_source = "Set the source file.";
 
+static const std::string option_name_values = "--configuration";
+static const std::string option_info_values = "Output the option values.";
+
 static const std::string option_name_line_number = "--line-number";
 static const std::string option_info_line_number = "Output line numbers.";
 
@@ -29,6 +32,8 @@ std::string OptionInfo::get_info() const {
 OptionList::OptionList() {
   OptionInfo time_info(option_name_time, option_info_time);
   add_option(Option(time_info, OptionValue::negative));
+  OptionInfo values_info(option_name_values, option_info_values);
+  add_option(Option(values_info, OptionValue::negative));
   OptionInfo source_info(option_name_source, option_info_source);
   add_option(Option(source_info, OptionValue(default_source, 0)));
   OptionInfo line_number_info(option_name_line_number, option_info_line_number);
@@ -64,18 +69,32 @@ bool OptionList::is_printing_line_numbers() const {
   return get_value(option_name_line_number).to_boolean();
 }
 
+bool OptionList::is_printing_configuration() const {
+  return get_value(option_name_values).to_boolean();
+};
+
 std::string OptionList::get_source_file() const {
   return get_value(option_name_source).text;
 }
 
 void OptionList::print_options() const {
-  // These will be sorted by option name because maps are sorted.
-  for (auto it = map.begin(); it != map.end(); it++) {
+  for (auto pair : map) {
     std::cout << std::setw(4) << ' ';
     std::cout << std::setw(16) << std::left;
-    std::cout << it->second.info.get_name();
+    std::cout << pair.second.info.get_name();
     std::cout << ' ';
-    std::cout << it->second.info.get_info();
+    std::cout << pair.second.info.get_info();
+    std::cout << '\n';
+  }
+}
+
+void OptionList::print_configuration() const {
+  for (auto pair : map) {
+    std::cout << std::setw(4) << ' ';
+    std::cout << std::setw(16) << std::left;
+    std::cout << pair.second.info.get_name();
+    std::cout << ' ';
+    std::cout << pair.second.value.text;
     std::cout << '\n';
   }
 }

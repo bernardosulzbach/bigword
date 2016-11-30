@@ -67,8 +67,10 @@ class OptionList {
   void parse(const std::string &string);
   bool is_timing() const;
   bool is_printing_line_numbers() const;
+  bool is_printing_configuration() const;
   std::string get_source_file() const;
   void print_options() const;
+  void print_configuration() const;
 };
 
 #endif
