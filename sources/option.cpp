@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include "configuration.hpp"
 #include "clock.hpp"
 
 const OptionValue OptionValue::negative = OptionValue("Negative", 0);
@@ -12,13 +13,11 @@ static const std::string option_name_time = "--time";
 static const std::string option_name_source = "--source";
 static const std::string option_name_line_number = "--line-number";
 
-static const std::string default_source_file = "words.txt";
-
 OptionList::OptionList() {
   add_option(Option(option_name_time, "Output computation times.",
                     OptionValue::negative));
   add_option(Option(option_name_source, "Set the source file.",
-                    OptionValue(default_source_file, 0)));
+                    OptionValue(default_source, 0)));
   add_option(Option(option_name_line_number, "Output line numbers.",
                     OptionValue::positive));
 }

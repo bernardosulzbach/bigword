@@ -2,12 +2,24 @@ cmake_minimum_required (VERSION 3.2.2)
 
 project (bigword)
 
+set (VERSION_MAJOR 0)
+set (VERSION_MINOR 1)
+
 set (CMAKE_CXX_STANDARD 14)
 
 # Just add -Wall -Wextra -Werror if using GCC or Clang.
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 endif ()
+
+set (BIGWORD_DEFAULT_SOURCE "source.txt")
+
+configure_file ("${PROJECT_SOURCE_DIR}/sources/configuration.hpp.in"
+                "${PROJECT_BINARY_DIR}/sources/configuration.hpp")
+
+# Add the binary tree to the search path for include files
+# so that we will find it.
+include_directories("${PROJECT_BINARY_DIR}/sources/")
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
@@ -41,4 +53,5 @@ target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_SOURCE_DIR}/data/en/words.txt ${CMAKE_BINARY_DIR}/words.txt)
+    ${CMAKE_SOURCE_DIR}/data/en/words/words.txt
+    ${CMAKE_BINARY_DIR}/${BIGWORD_DEFAULT_SOURCE})
