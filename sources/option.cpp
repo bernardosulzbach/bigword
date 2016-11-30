@@ -9,17 +9,20 @@
 const OptionValue OptionValue::negative = OptionValue("Negative", 0);
 const OptionValue OptionValue::positive = OptionValue("Positive", 1);
 
-static const std::string option_name_time = "--time";
-static const std::string option_info_time = "Output computation times.";
-
-static const std::string option_name_source = "--source";
-static const std::string option_info_source = "Set the source file.";
-
 static const std::string option_name_values = "--configuration";
 static const std::string option_info_values = "Output the option values.";
 
+static const std::string option_name_version = "--version";
+static const std::string option_info_version = "Output the program version.";
+
+static const std::string option_name_time = "--time";
+static const std::string option_info_time = "Output computation times.";
+
 static const std::string option_name_line_number = "--line-number";
 static const std::string option_info_line_number = "Output line numbers.";
+
+static const std::string option_name_source = "--source";
+static const std::string option_info_source = "Set the source file.";
 
 std::string OptionInfo::get_name() const {
   return name;
@@ -30,14 +33,18 @@ std::string OptionInfo::get_info() const {
 }
 
 OptionList::OptionList() {
+  OptionInfo line_number_info(option_name_line_number, option_info_line_number);
+  add_option(Option(line_number_info, OptionValue::negative));
+  OptionInfo line_number_version(option_name_version, option_info_version);
+  add_option(Option(line_number_version, OptionValue::negative));
+
   OptionInfo time_info(option_name_time, option_info_time);
   add_option(Option(time_info, OptionValue::negative));
   OptionInfo values_info(option_name_values, option_info_values);
   add_option(Option(values_info, OptionValue::negative));
+
   OptionInfo source_info(option_name_source, option_info_source);
   add_option(Option(source_info, OptionValue(default_source, 0)));
-  OptionInfo line_number_info(option_name_line_number, option_info_line_number);
-  add_option(Option(line_number_info, OptionValue::negative));
 }
 
 void OptionList::add_option(Option option) {
@@ -100,6 +107,14 @@ bool OptionList::is_printing_line_numbers() const {
 
 bool OptionList::is_printing_configuration() const {
   return get_value(option_name_values).to_boolean();
+}
+
+bool OptionList::is_printing_version() const {
+  return get_value(option_name_version).to_boolean();
+}
+
+bool OptionList::needs_query() const {
+  return !(is_printing_configuration() || is_printing_version());
 }
 
 std::string OptionList::get_source_file() const {

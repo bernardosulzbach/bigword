@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "configuration.hpp"
 #include "option.hpp"
 #include "store.hpp"
 #include "word.hpp"
@@ -101,10 +102,16 @@ int main(int argc, char *argv[]) {
   if (options.is_printing_configuration()) {
     options.print_configuration();
   }
+  if (options.is_printing_version()) {
+    std::cout << "BigWord version " << version << '\n';
+  }
   const WordVector words = read_input(argc, argv);
-  // Fail if there is no valid input multiset of letters and one is needed.
-  if (words.empty() && !options.is_printing_configuration()) {
-    print_usage(std::string(argv[0]), options);
+  if (words.empty()) {
+    // Fail if there is no query and one is needed.
+    if (options.needs_query()) {
+      print_usage(std::string(argv[0]), options);
+    }
+    // Prevent loading the WordStore.
     return 0;
   }
   WordStore store = load_word_store(options.get_source_file());
