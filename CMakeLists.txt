@@ -7,9 +7,9 @@ set (VERSION_MINOR 1)
 
 set (CMAKE_CXX_STANDARD 14)
 
-# Just add -Wall -Wextra -Werror if using GCC or Clang.
+# Just add our own flags if using GCC or Clang.
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wunreachable-code -Wreturn-type -Wall -Wextra -Wpedantic -Werror")
 endif ()
 
 set (BIGWORD_DEFAULT_SOURCE "source.txt")
