@@ -66,7 +66,7 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
   return true;
 }
 
-Word::Word(const std::string &string, const size_t line)
+Word::Word(const std::string &string, const LineNumber line)
     : word(string), line_number(line) {}
 
 bool Word::operator==(const Word &other) const {
@@ -86,7 +86,7 @@ std::string Word::to_string() const {
   return word;
 }
 
-size_t Word::get_line_number() const {
+LineNumber Word::get_line_number() const {
   return line_number;
 }
 

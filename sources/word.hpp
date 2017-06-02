@@ -34,13 +34,11 @@ class LetterCount {
 class Word {
  private:
   std::string word;
-  // Zero indicates an undefined line.
-  LineNumber line_number;
+  LineNumber line_number;  // Zero indicates an undefined line.
   LetterCount count;
 
  public:
-  // Zero indicates an undefined line.
-  Word(const std::string &string, size_t line = 0);
+  Word(const std::string &string, LineNumber line = 0);
 
   bool operator==(const Word &other) const;
 
@@ -50,7 +48,7 @@ class Word {
 
   std::string to_string() const;
 
-  size_t get_line_number() const;
+  LineNumber get_line_number() const;
 
   static bool is_shorter(const Word &a, const Word &b);
 
