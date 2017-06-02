@@ -9,10 +9,10 @@ An application to efficiently find words in a dictionary from a multiset of lett
 I suggest you use Ninja.
 
 
-```bash
-$ mkdir build 
+```
+$ mkdir build
 $ cd build
-$ cmake -G Ninja -D CMAKE_BUILD_TYPE=Release .. 
+$ cmake -G Ninja -D CMAKE_BUILD_TYPE=Release ..
 $ ninja
 ```
 
@@ -20,13 +20,13 @@ $ ninja
 
 From the build tree, run
 
-```bash
+```
 run-clang-tidy -fix -quiet && clang-format -i ../sources/*
 ```
 
 ## Running
 
-```bash
+```
 $ ./bigword linkedlists
 > instilled
 > kindliest
