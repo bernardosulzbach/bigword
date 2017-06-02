@@ -27,6 +27,15 @@ run-clang-tidy -fix -quiet && clang-format -i ../sources/*
 ## Running
 
 ```
+$ ./bigword --help
+> Usage: ./bigword [OPTIONS] LETTERS
+>     --configuration  Output the option values.
+>     --copyright      Output the license.
+>     --line-number    Output line numbers.
+>     --source         Set the source file.
+>     --time           Output computation times.
+>     --version        Output the program version.
+
 $ ./bigword linkedlists
 > instilled
 > kindliest
@@ -39,6 +48,21 @@ $ ./bigword abcdefghij
 
 $ ./bigword aeioubsdlinux
 > unoxidisable
+
+$ ./bigword --time anythingyousynthesize irks lock padlock
+> -- Finished loading after 60 milliseconds.
+> -- Query 1 matched 1 word after 2 milliseconds.
+> synthesization
+> -- Query 2 matched 4 words after 248 microseconds.
+> irks
+> kirs
+> kris
+> risk
+> -- Query 3 matched 2 words after 294 microseconds.
+> colk
+> lock
+> -- Query 4 matched 1 word after 1 millisecond.
+> padlock
 ```
 
 ## Design
