@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "configuration.hpp"
+#include "license.hpp"
 #include "option.hpp"
 #include "store.hpp"
 #include "word.hpp"
@@ -101,6 +102,9 @@ int unguardedMain(int argc, char *argv[]) {
   if (options.is_printing_configuration()) {
     options.print_configuration();
     return EXIT_SUCCESS;
+  }
+  if (options.is_printing_license()) {
+    print_license();
   }
   if (options.is_printing_version()) {
     std::cout << "BigWord version " << version << '\n';

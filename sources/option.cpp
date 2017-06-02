@@ -19,6 +19,9 @@ static constexpr auto option_info_time = "Output computation times.";
 static constexpr auto option_name_line_number = "--line-number";
 static constexpr auto option_info_line_number = "Output line numbers.";
 
+static constexpr auto option_name_license = "--license";
+static constexpr auto option_info_license = "Output the license.";
+
 static constexpr auto option_name_source = "--source";
 static constexpr auto option_info_source = "Set the source file.";
 
@@ -62,6 +65,9 @@ OptionList::OptionList() {
 
   OptionInfo version_info(option_name_version, option_info_version);
   add_option(Option(version_info, negativeOptionValue));
+
+  OptionInfo license_info(option_name_license, option_info_license);
+  add_option(Option(license_info, negativeOptionValue));
 
   OptionInfo time_info(option_name_time, option_info_time);
   add_option(Option(time_info, negativeOptionValue));
@@ -140,12 +146,23 @@ bool OptionList::is_printing_configuration() const {
   return get_value(option_name_values).to_boolean();
 }
 
+bool OptionList::is_printing_license() const {
+  return get_value(option_name_license).to_boolean();
+}
+
 bool OptionList::is_printing_version() const {
   return get_value(option_name_version).to_boolean();
 }
 
 bool OptionList::needs_query() const {
-  return !(is_printing_configuration() || is_printing_version());
+  if (is_printing_configuration()) {
+    return false;
+  } else if (is_printing_license()) {
+    return false;
+  } else if (is_printing_version()) {
+    return false;
+  }
+  return true;
 }
 
 unsigned OptionList::get_allowed_unused() const {
