@@ -4,15 +4,6 @@ An application to efficiently find words in a dictionary from a multiset of lett
 
 [![Build Status](https://travis-ci.org/mafagafogigante/bigword.svg?branch=travis)](https://travis-ci.org/mafagafogigante/bigword)
 
-## Building
-
-```bash
-$ mkdir bld 
-$ cd bld
-$ cmake ..
-$ make
-```
-
 ## Running
 
 ```bash
@@ -29,6 +20,21 @@ $ ./bigword abcdefghij
 $ ./bigword aeioubsdlinux
 > unoxidisable
 ```
+
+## Building
+
+```bash
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ make
+```
+
+### Compilers
+
+This project has been tested with Clang, GCC, and the Intel C++ Compiler.
+
+No compiler greatly outperformed the alternatives.
 
 ## Design
 
