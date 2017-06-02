@@ -6,7 +6,7 @@ An application to efficiently find words in a dictionary from a multiset of lett
 
 ## Running
 
-```bash
+```
 $ ./bigword --help
 > Usage: ./bigword [OPTIONS] LETTERS
 >     --configuration  Output the option values.
@@ -47,7 +47,7 @@ $ ./bigword --time anythingyousynthesize irks lock padlock
 
 ## Building
 
-```bash
+```
 $ mkdir build
 $ cd build
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
