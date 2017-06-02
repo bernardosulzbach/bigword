@@ -13,6 +13,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STRE
 endif ()
 
 set (BIGWORD_DEFAULT_SOURCE "source.txt")
+set (BIGWORD_DEFAULT_LICENSE "license.txt")
 
 configure_file ("${PROJECT_SOURCE_DIR}/sources/configuration.hpp.in"
                 "${PROJECT_BINARY_DIR}/sources/configuration.hpp")
@@ -29,6 +30,8 @@ add_executable (bigword
     sources/linestream.cpp
     sources/analyzer.hpp
     sources/analyzer.cpp
+    sources/license.hpp
+    sources/license.cpp
     sources/digest.hpp
     sources/digest.cpp
     sources/option.hpp
@@ -52,6 +55,9 @@ target_link_libraries (bigword ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # Copy needed data files.
 add_custom_command (TARGET bigword PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    ${CMAKE_SOURCE_DIR}/LICENSE.txt
+    ${CMAKE_BINARY_DIR}/${BIGWORD_DEFAULT_LICENSE}
     COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_SOURCE_DIR}/data/en/words/words.txt
     ${CMAKE_BINARY_DIR}/${BIGWORD_DEFAULT_SOURCE})
