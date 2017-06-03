@@ -38,14 +38,16 @@ std::string OptionInfo::get_info() const {
 OptionList::OptionList() {
   OptionInfo line_number_info(option_name_line_number, option_info_line_number);
   add_option(Option(line_number_info, OptionValue::negative));
-  OptionInfo line_number_version(option_name_version, option_info_version);
-  add_option(Option(line_number_version, OptionValue::negative));
+
+  OptionInfo version_info(option_name_version, option_info_version);
+  add_option(Option(version_info, OptionValue::negative));
 
   OptionInfo copyright_info(option_name_copyright, option_info_copyright);
   add_option(Option(copyright_info, OptionValue::negative));
 
   OptionInfo time_info(option_name_time, option_info_time);
   add_option(Option(time_info, OptionValue::negative));
+
   OptionInfo values_info(option_name_values, option_info_values);
   add_option(Option(values_info, OptionValue::negative));
 
