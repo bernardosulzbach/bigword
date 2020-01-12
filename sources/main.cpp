@@ -32,11 +32,6 @@ static OptionList read_options(int argc, char *argv[]) {
   return options;
 }
 
-/**
- * Reads the input letters and make a word from it.
- *
- * Returns the empty word if there were no good candidates.
- */
 static WordVector read_input(int argc, char *argv[]) {
   WordVector words;
   for (int i = 1; i != argc; i++) {
