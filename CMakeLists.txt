@@ -5,7 +5,7 @@ project (bigword)
 set (VERSION_MAJOR 0)
 set (VERSION_MINOR 1)
 
-set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD 17)
 
 # Just add our own flags if using GCC or Clang.
 if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
