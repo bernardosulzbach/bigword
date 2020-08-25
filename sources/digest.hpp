@@ -12,12 +12,12 @@ class Digest {
   unsigned char digest[maximum_size] = {0};
 
  public:
-  Digest() {}
+  Digest() = default;
 
   /**
    * Constructs a Digest by digesting the contents of the specified file.
    */
-  Digest(const std::string &filename);
+  explicit Digest(const std::string &filename);
 
   bool operator==(const Digest &other) const;
 

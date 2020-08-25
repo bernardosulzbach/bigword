@@ -13,14 +13,14 @@ class LineStream : public std::streambuf {
   char buffer = '\0';
 
  protected:
-  int underflow() {
+  int underflow() override {
     // Read the next character.
     const int character = source->sbumpc();
     if (character != EOF) {
       if (buffer == '\n') {
         line_number++;
       }
-      buffer = character;
+      buffer = static_cast<char>(character);
       // Set the read area pointers.
       setg(&buffer, &buffer, &buffer + 1);
     }
@@ -28,21 +28,21 @@ class LineStream : public std::streambuf {
   }
 
  public:
-  LineStream(std::streambuf *source) : source(source) {}
+  explicit LineStream(std::streambuf *source) : source(source) {}
 
-  LineStream(std::istream &stream_owner) {
+  explicit LineStream(std::istream &stream_owner) {
     // Set the owner buffer to this object.
     owner = &stream_owner;
     // Keep track of the previous buffer so we can restore it in the end.
     source = owner->rdbuf(this);
   }
 
-  ~LineStream() {
+  ~LineStream() override {
     if (owner != nullptr) {
       // Restore the previous buffer.
       owner->rdbuf(source);
     }
   }
 
-  LineNumber get_line_number() const;
+  [[nodiscard]] LineNumber get_line_number() const;
 };

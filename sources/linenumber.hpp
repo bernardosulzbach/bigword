@@ -1,4 +1,6 @@
 #pragma once
 
+#include <cstdint>
+
 // The line number nested type name.
-typedef int64_t LineNumber;
+using LineNumber = int64_t;

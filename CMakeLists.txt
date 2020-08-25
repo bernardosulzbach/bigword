@@ -8,8 +8,9 @@ set(VERSION_MINOR 1)
 set(CMAKE_CXX_STANDARD 17)
 
 # Just add our own flags if using GCC or Clang.
-if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wunreachable-code -Wreturn-type -Wall -Wextra -Wpedantic -Werror")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+  message("Compiler is GCC/Clang, using a lot of warnings.")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wunreachable-code -Wreturn-type -Werror")
 endif()
 
 set(BIGWORD_DEFAULT_SOURCE "source.txt")

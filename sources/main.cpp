@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
       write_time(Duration(query_start, TimePoint()).to_nanoseconds());
     }
     std::cout << '.' << '\n';
-    for (Word match : matches) {
+    for (auto match : matches) {
       if (options.is_printing_line_numbers()) {
         std::cout << match.get_line_number() << ':';
       }
