@@ -2,9 +2,12 @@
 .ycm_extra_conf.py
 .ycm_extra_conf.pyc
 
+# IDEs
+.idea/
+
 # Build tree
+cmake-build-debug/
 build/
-bld/
 
 # Convenience links
 compile_commands.json
