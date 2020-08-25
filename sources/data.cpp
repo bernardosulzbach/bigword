@@ -7,8 +7,8 @@
 static const size_t limit_size = std::numeric_limits<uint32_t>::max();
 static const char separator = ':';
 
-using std::ostream;
 using std::istream;
+using std::ostream;
 
 void dump_safe_string(ostream &os, const std::string &string) {
   os << string << '\n';

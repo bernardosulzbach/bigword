@@ -1,5 +1,4 @@
-#ifndef CLOCK_HPP
-#define CLOCK_HPP
+#pragma once
 
 #include <chrono>
 #include <string>
@@ -21,5 +20,3 @@ class Duration {
 void write_time_with_unit(const uint64_t number, std::string name);
 
 void write_time(const double nanoseconds);
-
-#endif

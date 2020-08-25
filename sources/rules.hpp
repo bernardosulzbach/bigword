@@ -1,9 +1,8 @@
-#ifndef RULES_H
-#define RULES_H
+#pragma once
 
 #include <string>
 
-const size_t alphabet_size = 'z' - 'a' + 1;
+constexpr size_t alphabet_size = 'z' - 'a' + 1;
 
 /**
  * Returns whether or not a letter should be counted.
@@ -17,5 +16,3 @@ inline size_t get_letter_index(const char letter) {
 }
 
 bool is_valid_word(const std::string &word);
-
-#endif

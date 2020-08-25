@@ -1,5 +1,4 @@
-#ifndef LINESTREAM_H
-#define LINESTREAM_H
+#pragma once
 
 #include <fstream>
 #include <streambuf>
@@ -47,5 +46,3 @@ class LineStream : public std::streambuf {
 
   LineNumber get_line_number() const;
 };
-
-#endif

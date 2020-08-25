@@ -1,7 +1,7 @@
-#ifndef ANALYZER_H
-#define ANALYZER_H
+#pragma once
 
 #include <cstdint>
+
 #include "rules.hpp"
 
 /**
@@ -26,5 +26,3 @@ class Analysis {
   friend std::ostream &operator<<(std::ostream &os, const Analysis &analysis);
   friend std::istream &operator>>(std::istream &is, Analysis &analysis);
 };
-
-#endif

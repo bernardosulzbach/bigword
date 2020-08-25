@@ -1,7 +1,4 @@
-#ifndef LINENUMBER_HPP
-#define LINENUMBER_HPP
+#pragma once
 
 // The line number nested type name.
 typedef int64_t LineNumber;
-
-#endif

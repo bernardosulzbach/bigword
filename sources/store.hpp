@@ -1,8 +1,8 @@
-#ifndef STORE_HPP
-#define STORE_HPP
+#pragma once
 
 #include <string>
 #include <vector>
+
 #include "analyzer.hpp"
 #include "digest.hpp"
 #include "word.hpp"
@@ -26,5 +26,3 @@ struct WordStore {
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename);
-
-#endif

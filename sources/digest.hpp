@@ -1,5 +1,4 @@
-#ifndef DIGEST_HPP
-#define DIGEST_HPP
+#pragma once
 
 #include <openssl/evp.h>
 #include <fstream>
@@ -26,5 +25,3 @@ class Digest {
 
   friend std::istream &operator>>(std::istream &is, Digest &digest);
 };
-
-#endif

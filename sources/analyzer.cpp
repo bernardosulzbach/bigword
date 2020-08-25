@@ -1,7 +1,8 @@
-#include "analyzer.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+
+#include "analyzer.hpp"
 #include "rules.hpp"
 
 void Analysis::analyze(const std::string word) {

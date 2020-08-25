@@ -1,5 +1,4 @@
-#ifndef WORD_HPP
-#define WORD_HPP
+#pragma once
 
 #include <algorithm>
 #include <fstream>
@@ -7,6 +6,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
+
 #include "analyzer.hpp"
 #include "linestream.hpp"
 #include "rules.hpp"
@@ -63,5 +63,3 @@ std::ostream &operator<<(std::ostream &os, const Word &word);
 void dump_word_to_store(std::ostream &os, const Word &word);
 
 Word read_word_from_store(std::istream &is);
-
-#endif

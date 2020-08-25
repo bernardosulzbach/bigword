@@ -1,11 +1,11 @@
-#ifndef OPTION_HPP
-#define OPTION_HPP
+#pragma once
 
 #include <iomanip>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+
 #include "clock.hpp"
 #include "word.hpp"
 
@@ -74,5 +74,3 @@ class OptionList {
   void print_options() const;
   void print_configuration() const;
 };
-
-#endif
