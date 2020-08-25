@@ -1,18 +1,20 @@
+dist: focal
 language: cpp
-dist: trusty
 
 compiler:
+  - clang
   - gcc
 
+addons:
+  apt:
+    update: true
+
 script:
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
+  - mkdir build && cd build || exit
+  - cmake -DCMAKE_BUILD_TYPE=Debug ..
+  - cmake --build .
 
 notifications:
   email:
     on_success: always
     on_failure: always
-    recipients:
-      - mafagafogigante@gmail.com
