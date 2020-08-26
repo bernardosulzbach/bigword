@@ -138,7 +138,7 @@ std::string OptionList::get_source_file() const {
 }
 
 void OptionList::print_options() const {
-  for (auto pair : map) {
+  for (const auto &pair : map) {
     std::cout << std::setw(4) << ' ';
     std::cout << std::setw(16) << std::left;
     std::cout << pair.second.info.get_name();
@@ -149,7 +149,7 @@ void OptionList::print_options() const {
 }
 
 void OptionList::print_configuration() const {
-  for (auto pair : map) {
+  for (const auto &pair : map) {
     std::cout << std::setw(4) << ' ';
     std::cout << std::setw(16) << std::left;
     std::cout << pair.second.info.get_name();
