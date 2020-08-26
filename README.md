@@ -2,7 +2,7 @@
 
 An application to efficiently find words in a dictionary from a multiset of letters.
 
-[![Build Status](https://travis-ci.org/mafagafogigante/bigword.svg?branch=travis)](https://travis-ci.org/mafagafogigante/bigword)
+[![Build Status](https://travis-ci.com/bernardosulzbach/bigword.svg?branch=master)](https://travis-ci.com/bernardosulzbach/bigword)
 
 ## Building
 
