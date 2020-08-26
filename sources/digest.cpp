@@ -6,13 +6,13 @@
 #include <openssl/evp.h>
 
 namespace BigWord {
-static const size_t buffer_size = 8192;
+static constexpr size_t buffer_size = 8192;
 
 Digest::Digest(const std::string &filename) {
   unsigned char buffer[buffer_size];
   bool digesting = true;
   EVP_MD_CTX *md_context = EVP_MD_CTX_create();
-  std::ifstream input(filename);
+  std::ifstream input(filename, std::ios::binary);
   EVP_DigestInit_ex(md_context, EVP_sha256(), nullptr);
   while (digesting) {
     input.read((char *)buffer, buffer_size);
@@ -28,8 +28,10 @@ bool Digest::operator==(const Digest &other) const noexcept {
   if (length != other.length) {
     return false;
   }
-  return std::equal(std::begin(digest), std::end(digest),
-                    std::begin(other.digest));
+  const auto *const thisBegin = std::begin(digest);
+  const auto *const thisEnd = std::end(digest);
+  const auto *const otherBegin = std::begin(other.digest);
+  return std::equal(thisBegin, thisEnd, otherBegin);
 }
 
 static void write_base_16(std::ostream &os, const int x) {
