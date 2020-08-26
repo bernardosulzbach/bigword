@@ -9,6 +9,7 @@
 #include "linestream.hpp"
 #include "rules.hpp"
 
+namespace BigWord {
 void WordStore::compile() {
   std::sort(words.begin(), words.end(), Word::is_shorter_and_smaller);
   analysis.compile();
@@ -93,3 +94,4 @@ WordStore load_word_store(const std::string &filename) {
   dump_word_store(store);
   return store;
 }
+}  // namespace BigWord

@@ -11,6 +11,7 @@
 #include "linestream.hpp"
 #include "rules.hpp"
 
+namespace BigWord {
 std::string get_words_filename();
 
 class LetterCount {
@@ -63,3 +64,4 @@ std::ostream &operator<<(std::ostream &os, const Word &word);
 void dump_word_to_store(std::ostream &os, const Word &word);
 
 Word read_word_from_store(std::istream &is);
+}  // namespace BigWord

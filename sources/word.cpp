@@ -1,13 +1,15 @@
-#include "word.hpp"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <string>
+
 #include "data.hpp"
 #include "linestream.hpp"
 #include "rules.hpp"
+#include "word.hpp"
 
+namespace BigWord {
 static void report_unsupported_letter(const char letter) {
   std::cerr << "Found unsupported letter:";
   std::cerr << ' ';
@@ -125,3 +127,4 @@ Word read_word_from_store(std::istream &is) {
   std::string string = read_safe_string(is);
   return Word(string, line_number);
 }
+}  // namespace BigWord

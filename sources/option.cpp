@@ -6,6 +6,7 @@
 #include "clock.hpp"
 #include "configuration.hpp"
 
+namespace BigWord {
 const OptionValue OptionValue::negative = OptionValue("Negative", 0);
 const OptionValue OptionValue::positive = OptionValue("Positive", 1);
 
@@ -142,3 +143,4 @@ void OptionList::print_configuration() const {
     std::cout << '\n';
   }
 }
+}  // namespace BigWord

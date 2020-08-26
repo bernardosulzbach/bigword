@@ -2,6 +2,7 @@
 
 #include <string>
 
+namespace BigWord {
 constexpr size_t alphabet_size = 'z' - 'a' + 1;
 
 /**
@@ -16,3 +17,4 @@ inline size_t get_letter_index(const char letter) {
 }
 
 bool is_valid_word(const std::string &word);
+}  // namespace BigWord

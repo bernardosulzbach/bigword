@@ -1,6 +1,7 @@
 #include "rules.hpp"
 #include <string>
 
+namespace BigWord {
 bool is_valid_word(const std::string &word) {
   if (word.empty()) {
     return false;
@@ -12,3 +13,4 @@ bool is_valid_word(const std::string &word) {
   }
   return true;
 }
+}  // namespace BigWord

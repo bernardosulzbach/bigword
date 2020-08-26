@@ -3,6 +3,7 @@
 #include <chrono>
 #include <string>
 
+namespace BigWord {
 class TimePoint {
  public:
   std::chrono::high_resolution_clock::time_point now;
@@ -20,3 +21,4 @@ class Duration {
 void write_time_with_unit(uint64_t number, std::string name);
 
 void write_time(double nanoseconds);
+}  // namespace BigWord

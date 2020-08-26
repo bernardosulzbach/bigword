@@ -4,6 +4,7 @@
 
 #include "rules.hpp"
 
+namespace BigWord {
 /**
  * An analysis of the most efficient way to compare two letter counts.
  *
@@ -26,3 +27,4 @@ class Analysis {
   friend std::ostream &operator<<(std::ostream &os, const Analysis &analysis);
   friend std::istream &operator>>(std::istream &is, Analysis &analysis);
 };
+}  // namespace BigWord

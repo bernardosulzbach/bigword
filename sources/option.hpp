@@ -4,11 +4,13 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "clock.hpp"
 #include "word.hpp"
 
+namespace BigWord {
 class OptionInfo {
   const std::string name;
   const std::string info;
@@ -21,8 +23,8 @@ class OptionInfo {
     return name == other.name && info == other.info;
   }
 
-  std::string get_name() const;
-  std::string get_info() const;
+  [[nodiscard]] std::string get_name() const;
+  [[nodiscard]] std::string get_info() const;
 };
 
 struct OptionValue {
@@ -74,3 +76,4 @@ class OptionList {
   void print_options() const;
   void print_configuration() const;
 };
+}  // namespace BigWord

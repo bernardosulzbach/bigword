@@ -7,6 +7,7 @@
 #include "digest.hpp"
 #include "word.hpp"
 
+namespace BigWord {
 /**
  * A database of Words.
  *
@@ -26,3 +27,4 @@ struct WordStore {
  * Loads the WordStore for the specified text file.
  */
 WordStore load_word_store(const std::string &filename);
+}  // namespace BigWord

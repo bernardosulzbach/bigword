@@ -2,8 +2,10 @@
 
 #include <fstream>
 #include <streambuf>
+
 #include "linenumber.hpp"
 
+namespace BigWord {
 class LineStream : public std::streambuf {
  private:
   std::streambuf *source;
@@ -46,3 +48,4 @@ class LineStream : public std::streambuf {
 
   [[nodiscard]] LineNumber get_line_number() const;
 };
+}  // namespace BigWord

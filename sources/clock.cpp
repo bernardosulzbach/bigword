@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+namespace BigWord {
 TimePoint::TimePoint() {
   now = std::chrono::high_resolution_clock::now();
 }
@@ -43,3 +44,4 @@ void write_time(const double nanoseconds) {
     write_time_with_unit(std::floor(nanoseconds), "nanosecond");
   }
 }
+}  // namespace BigWord

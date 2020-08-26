@@ -1,6 +1,7 @@
 #include "digest.hpp"
 #include <openssl/evp.h>
 
+namespace BigWord {
 static const size_t buffer_size = 8192;
 
 Digest::Digest(const std::string &filename) {
@@ -73,3 +74,4 @@ std::istream &operator>>(std::istream &is, Digest &digest) {
   }
   return is;
 }
+}  // namespace BigWord

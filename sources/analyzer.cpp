@@ -5,6 +5,7 @@
 #include "analyzer.hpp"
 #include "rules.hpp"
 
+namespace BigWord {
 void Analysis::analyze(const std::string word) {
   words++;
   for (const char letter : word) {
@@ -97,3 +98,4 @@ std::istream &operator>>(std::istream &is, Analysis &analysis) {
   }
   return is;
 }
+}  // namespace BigWord

@@ -3,6 +3,7 @@
 #include <openssl/evp.h>
 #include <fstream>
 
+namespace BigWord {
 class Digest {
  public:
   static const size_t maximum_size = EVP_MAX_MD_SIZE;
@@ -25,3 +26,4 @@ class Digest {
 
   friend std::istream &operator>>(std::istream &is, Digest &digest);
 };
+}  // namespace BigWord

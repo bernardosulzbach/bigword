@@ -11,6 +11,7 @@
 #include "store.hpp"
 #include "word.hpp"
 
+namespace BigWord {
 typedef std::vector<Word> WordVector;
 
 static void print_usage(const std::string &program_name, OptionList options) {
@@ -84,8 +85,10 @@ static void write_duration(const std::string &action, Duration duration) {
   std::cout << '.';
   std::cout << '\n';
 }
+}  // namespace BigWord
 
 int main(int argc, char *argv[]) {
+  using namespace BigWord;
   std::ios_base::sync_with_stdio(false);
   const TimePoint loading_start;
   OptionList options = read_options(argc, argv);

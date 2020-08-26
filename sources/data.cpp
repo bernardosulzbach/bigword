@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 
+namespace BigWord {
 static const size_t limit_size = std::numeric_limits<uint32_t>::max();
 static const char separator = ':';
 
@@ -38,3 +39,4 @@ std::string read_unsafe_string(istream &is) {
   is.read(&string[0], size);
   return string;
 }
+}  // namespace BigWord

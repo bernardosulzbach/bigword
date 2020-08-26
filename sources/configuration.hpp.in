@@ -1,9 +1,8 @@
-#ifndef CONFIGURATION_HPP
-#define CONFIGURATION_HPP
+#pragma once
 
 #include <string>
 
+namespace BigWord {
 const std::string version = "@VERSION_MAJOR@.@VERSION_MINOR@";
 const std::string default_source = "@BIGWORD_DEFAULT_SOURCE@";
-
-#endif
+}  // namespace BigWord
