@@ -1,9 +1,8 @@
 #include "option.hpp"
-#include <chrono>
-#include <cmath>
+
 #include <iostream>
 #include <vector>
-#include "clock.hpp"
+
 #include "configuration.hpp"
 
 namespace BigWord {

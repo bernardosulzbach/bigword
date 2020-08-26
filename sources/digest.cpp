@@ -1,4 +1,5 @@
 #include "digest.hpp"
+
 #include <openssl/evp.h>
 
 namespace BigWord {

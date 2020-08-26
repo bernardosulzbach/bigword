@@ -1,13 +1,12 @@
+#include "word.hpp"
+
 #include <algorithm>
-#include <fstream>
 #include <iostream>
-#include <iterator>
 #include <string>
 
 #include "data.hpp"
 #include "linestream.hpp"
 #include "rules.hpp"
-#include "word.hpp"
 
 namespace BigWord {
 static void report_unsupported_letter(const char letter) {
@@ -67,10 +66,8 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
   return true;
 }
 
-Word::Word(const std::string &string, const size_t line) {
-  word = string;
-  line_number = line;
-}
+Word::Word(const std::string &string, const size_t line)
+    : word(string), line_number(line) {}
 
 bool Word::operator==(const Word &other) const {
   return word == other.word && count == other.count;

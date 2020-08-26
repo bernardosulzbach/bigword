@@ -1,4 +1,5 @@
 #include "clock.hpp"
+
 #include <chrono>
 #include <cmath>
 #include <iostream>

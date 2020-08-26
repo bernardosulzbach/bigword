@@ -1,10 +1,12 @@
 #include "store.hpp"
-#include <openssl/evp.h>
-#include <fstream>
+
 #include <future>
 #include <iostream>
 #include <string>
 #include <thread>
+
+#include <openssl/evp.h>
+
 #include "data.hpp"
 #include "linestream.hpp"
 #include "rules.hpp"

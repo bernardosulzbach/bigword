@@ -1,7 +1,8 @@
 #pragma once
 
-#include <openssl/evp.h>
 #include <fstream>
+
+#include <openssl/evp.h>
 
 namespace BigWord {
 class Digest {

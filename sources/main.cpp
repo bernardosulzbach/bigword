@@ -1,11 +1,10 @@
 #include <algorithm>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <memory>
 #include <string>
 #include <vector>
+
 #include "configuration.hpp"
 #include "option.hpp"
 #include "store.hpp"

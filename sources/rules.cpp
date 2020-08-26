@@ -1,4 +1,6 @@
 #include "rules.hpp"
+
+#include <algorithm>
 #include <string>
 
 namespace BigWord {
@@ -6,11 +8,6 @@ bool is_valid_word(const std::string &word) {
   if (word.empty()) {
     return false;
   }
-  for (char letter : word) {
-    if (!is_valid_letter(letter)) {
-      return false;
-    }
-  }
-  return true;
+  return std::all_of(std::begin(word), std::end(word), is_valid_letter);
 }
 }  // namespace BigWord

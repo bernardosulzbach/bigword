@@ -40,7 +40,7 @@ class Word {
 
  public:
   // Zero indicates an undefined line.
-  Word(const std::string &string, const size_t line = 0);
+  Word(const std::string &string, size_t line = 0);
 
   bool operator==(const Word &other) const;
 

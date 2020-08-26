@@ -1,8 +1,9 @@
+#include "analyzer.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 
-#include "analyzer.hpp"
 #include "rules.hpp"
 
 namespace BigWord {
