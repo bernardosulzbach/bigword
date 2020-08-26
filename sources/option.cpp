@@ -87,20 +87,21 @@ static std::vector<std::string> get_arguments(const std::string &string) {
 }
 
 void OptionList::parse(const std::string &string) {
-  const std::string option = get_option_name(string);
-  const std::vector<std::string> arguments = get_arguments(string);
-  if (arguments.empty()) {
-    for (auto it = map.begin(); it != map.end(); it++) {
-      if (it->first == option && it->second.value.is_boolean()) {
-        it->second.value = OptionValue::positive;
-        return;
-      }
+  const auto option_name = get_option_name(string);
+  const auto arguments = get_arguments(string);
+  try {
+    auto &option = map.at(option_name);
+    if (option.value.is_boolean()) {
+      option.value = OptionValue::positive;
+      return;
     }
-  }
-  for (auto it = map.begin(); it != map.end(); it++) {
-    if (it->first == option) {
-      it->second.value = OptionValue(arguments[0], 0);
+    if (arguments.empty()) {
+      const auto message = "Option " + option_name + " requires an argument.";
+      throw std::runtime_error(message);
     }
+    option.value = OptionValue(arguments[0], 0);
+  } catch (const std::out_of_range &exception) {
+    // Not an option, just ignore it.
   }
 }
 

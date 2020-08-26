@@ -84,17 +84,15 @@ static void write_duration(const std::string &action, Duration duration) {
   std::cout << '.';
   std::cout << '\n';
 }
-}  // namespace BigWord
 
-int main(int argc, char *argv[]) {
-  using namespace BigWord;
+int unguardedMain(int argc, char *argv[]) {
   std::ios_base::sync_with_stdio(false);
   const TimePoint loading_start;
   OptionList options = read_options(argc, argv);
   if (argc < 2) {
     // Fail if there are too few arguments.
     print_usage(std::string(argv[0]), options);
-    return 0;
+    return EXIT_FAILURE;
   }
   if (options.is_printing_configuration()) {
     options.print_configuration();
@@ -109,7 +107,7 @@ int main(int argc, char *argv[]) {
       print_usage(std::string(argv[0]), options);
     }
     // Prevent loading the WordStore.
-    return 0;
+    return EXIT_FAILURE;
   }
   WordStore store = load_word_store(options.get_source_file());
   if (options.is_timing()) {
@@ -141,5 +139,20 @@ int main(int argc, char *argv[]) {
       std::cout << '\n';
     }
   }
-  return 0;
+  return EXIT_SUCCESS;
+}
+
+int main(int argc, char *argv[]) {
+  try {
+    return unguardedMain(argc, argv);
+  } catch (const std::exception &exception) {
+    std::cout << "Failure:" << '\n';
+    std::cout << "  " << exception.what() << '\n';
+    return EXIT_FAILURE;
+  }
+}
+}  // namespace BigWord
+
+int main(int argc, char *argv[]) {
+  return BigWord::main(argc, argv);
 }
