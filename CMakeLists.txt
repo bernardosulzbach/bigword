@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.9)
 
 project(bigword)
 
@@ -12,6 +12,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCH
   message("Compiler is GCC/Clang, using a lot of warnings.")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wunreachable-code -Wreturn-type -Werror")
 endif()
+
+include(CheckIPOSupported)
+check_ipo_supported(RESULT HAS_IPO_SUPPORT OUTPUT IPO_ERROR)
 
 set(BIGWORD_DEFAULT_SOURCE "source.txt")
 
@@ -55,3 +58,10 @@ add_custom_command(
   TARGET bigword
   PRE_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/data/en/words/words.txt ${CMAKE_BINARY_DIR}/${BIGWORD_DEFAULT_SOURCE})
+
+if(HAS_IPO_SUPPORT)
+  message(STATUS "IPO enabled.")
+  set_property(TARGET bigword PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+else()
+  message(STATUS "IPO not supported:\n${IPO_ERROR}")
+endif()
