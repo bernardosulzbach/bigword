@@ -22,7 +22,7 @@ static std::ostream &operator<<(std::ostream &os, const WordStore &store) {
   os << store.source_digest << '\n';
   os << store.analysis << '\n';
   os << store.words.size() << '\n';
-  for (Word word : store.words) {
+  for (const Word &word : store.words) {
     dump_word_to_store(os, word);
   }
   return os;
@@ -69,7 +69,7 @@ static WordStore make_word_store(const std::string &filename) {
       continue;
     }
     const LineNumber line_number = line_stream.get_line_number();
-    store.words.push_back(Word(string, line_number));
+    store.words.emplace_back(string, line_number);
     store.analysis.analyze(string);
   }
   store.source_digest = future_digest.get();

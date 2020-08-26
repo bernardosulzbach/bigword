@@ -13,7 +13,8 @@
 namespace BigWord {
 typedef std::vector<Word> WordVector;
 
-static void print_usage(const std::string &program_name, OptionList options) {
+static void print_usage(const std::string &program_name,
+                        const OptionList &options) {
   std::cout << "Usage: " << program_name;
   std::cout << ' ' << "[OPTIONS]";
   std::cout << ' ' << "LETTERS";
@@ -37,7 +38,7 @@ static WordVector read_input(int argc, char *argv[]) {
   for (int i = 1; i != argc; i++) {
     const std::string argument(argv[i]);
     if (is_valid_word(argument)) {
-      words.push_back(Word(argument));
+      words.emplace_back(argument);
     }
   }
   return words;
@@ -131,7 +132,7 @@ int unguardedMain(int argc, char *argv[]) {
       write_time(Duration(query_start, TimePoint()).to_nanoseconds());
     }
     std::cout << '.' << '\n';
-    for (auto match : matches) {
+    for (const auto &match : matches) {
       if (options.is_printing_line_numbers()) {
         std::cout << match.get_line_number() << ':';
       }

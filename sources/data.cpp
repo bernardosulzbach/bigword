@@ -31,12 +31,12 @@ std::string read_safe_string(istream &is) {
 }
 
 std::string read_unsafe_string(istream &is) {
-  size_t size;
+  size_t size = 0;
   is >> size;
   is.ignore();
   std::string string;
   string.resize(size);
-  is.read(&string[0], size);
+  is.read(string.data(), size);
   return string;
 }
 }  // namespace BigWord

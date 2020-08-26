@@ -62,7 +62,7 @@ OptionList::OptionList() {
   add_option(Option(source_info, OptionValue(default_source, 0)));
 }
 
-void OptionList::add_option(Option option) {
+void OptionList::add_option(const Option &option) {
   map.insert({option.info.get_name(), option});
 }
 
