@@ -21,7 +21,7 @@ class Digest {
    */
   explicit Digest(const std::string &filename);
 
-  bool operator==(const Digest &other) const;
+  bool operator==(const Digest &other) const noexcept;
 
   friend std::ostream &operator<<(std::ostream &os, const Digest &digest);
 
