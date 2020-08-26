@@ -13,8 +13,7 @@ Digest::Digest(const std::string &filename) {
   bool digesting = true;
   EVP_MD_CTX *md_context = EVP_MD_CTX_create();
   std::ifstream input(filename);
-  OpenSSL_add_all_digests();
-  EVP_DigestInit_ex(md_context, EVP_sha256(), NULL);
+  EVP_DigestInit_ex(md_context, EVP_sha256(), nullptr);
   while (digesting) {
     input.read((char *)buffer, buffer_size);
     const size_t read_bytes = input.gcount();
