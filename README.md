@@ -18,7 +18,7 @@ $ cmake --build .
 From the build tree, run
 
 ```bash
-run-clang-tidy -fix -format -quiet
+run-clang-tidy -fix -quiet && clang-format -i ../sources/*
 ```
 
 ## Running
