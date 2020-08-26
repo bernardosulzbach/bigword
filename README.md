@@ -13,6 +13,14 @@ $ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ cmake --build .
 ```
 
+## Static analysis and code formatting
+
+From the build tree, run
+
+```bash
+run-clang-tidy -fix -format -quiet
+```
+
 ## Running
 
 ```bash
