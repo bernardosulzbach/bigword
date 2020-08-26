@@ -1,12 +1,13 @@
 #include "data.hpp"
+
 #include <iostream>
 #include <limits>
 #include <stdexcept>
 #include <string>
 
 namespace BigWord {
-static const size_t limit_size = std::numeric_limits<uint32_t>::max();
-static const char separator = ':';
+static constexpr size_t limit_size = std::numeric_limits<uint32_t>::max();
+static constexpr char separator = ':';
 
 using std::istream;
 using std::ostream;
@@ -16,12 +17,10 @@ void dump_safe_string(ostream &os, const std::string &string) {
 }
 
 void dump_unsafe_string(ostream &os, const std::string &string) {
-  const size_t size = string.size();
-  if (size > limit_size) {
-    os << limit_size << separator << string.substr(size) << '\n';
-  } else {
-    os << size << separator << string << '\n';
+  if (string.size() > limit_size) {
+    throw std::runtime_error("String is largest than the size limit.");
   }
+  os << string.size() << separator << string << '\n';
 }
 
 std::string read_safe_string(istream &is) {
