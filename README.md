@@ -7,10 +7,10 @@ An application to efficiently find words in a dictionary from a multiset of lett
 ## Building
 
 ```bash
-$ mkdir bld 
-$ cd bld
-$ cmake ..
-$ make
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ cmake --build .
 ```
 
 ## Running
