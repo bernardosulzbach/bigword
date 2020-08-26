@@ -32,6 +32,21 @@ std::string OptionInfo::get_info() const {
   return info;
 }
 
+OptionValue::OptionValue(const std::string &text, const int64_t integer)
+    : text(text), integer(integer) {}
+
+bool OptionValue::operator==(const OptionValue &other) const {
+  return text == other.text && integer == other.integer;
+}
+
+bool OptionValue::is_boolean() const {
+  return *this == negative || *this == positive;
+}
+
+bool OptionValue::to_boolean() const {
+  return integer != 0;
+}
+
 OptionList::OptionList() {
   OptionInfo line_number_info(option_name_line_number, option_info_line_number);
   add_option(Option(line_number_info, OptionValue::negative));

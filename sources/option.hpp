@@ -34,20 +34,13 @@ struct OptionValue {
   std::string text;
   int64_t integer;
 
-  OptionValue(const std::string &text, const int64_t integer)
-      : text(text), integer(integer) {}
+  OptionValue(const std::string &text, const int64_t integer);
 
-  bool operator==(const OptionValue &other) const {
-    return text == other.text && integer == other.integer;
-  }
+  bool operator==(const OptionValue &other) const;
 
-  bool is_boolean() const {
-    return *this == negative || *this == positive;
-  }
+  bool is_boolean() const;
 
-  bool to_boolean() const {
-    return integer != 0;
-  }
+  bool to_boolean() const;
 };
 
 struct Option {
