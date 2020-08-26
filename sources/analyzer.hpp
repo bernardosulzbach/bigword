@@ -20,7 +20,7 @@ class Analysis {
   void find_best_order();
 
  public:
-  void analyze(const std::string word);
+  void analyze(const std::string &word);
   void compile();
   size_t best_index(const size_t comparison) const;
 

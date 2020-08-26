@@ -9,10 +9,9 @@ namespace BigWord {
 static const size_t buffer_size = 8192;
 
 Digest::Digest(const std::string &filename) {
-  EVP_MD_CTX *md_context;
   unsigned char buffer[buffer_size];
   bool digesting = true;
-  md_context = EVP_MD_CTX_create();
+  EVP_MD_CTX *md_context = EVP_MD_CTX_create();
   std::ifstream input(filename);
   OpenSSL_add_all_digests();
   EVP_DigestInit_ex(md_context, EVP_sha256(), NULL);
@@ -43,13 +42,12 @@ static void write_base_16(std::ostream &os, const int x) {
 }
 
 static int read_base_16(std::istream &is) {
-  char c;
+  char c = 0;
   is >> c;
   if (c >= 'a') {
     return 10 + (c - 'a');
-  } else {
-    return c - '0';
   }
+  return c - '0';
 }
 
 std::ostream &operator<<(std::ostream &os, const Digest &digest) {

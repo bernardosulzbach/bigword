@@ -23,7 +23,7 @@ static const double thousand = 1000.0;
 static const double million = thousand * thousand;
 static const double billion = thousand * thousand * thousand;
 
-void write_time_with_unit(const uint64_t number, std::string name) {
+void write_time_with_unit(const uint64_t number, const std::string& name) {
   if (number == 1) {
     std::cout << number << ' ' << name;
   } else {

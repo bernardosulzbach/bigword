@@ -7,7 +7,7 @@
 #include "rules.hpp"
 
 namespace BigWord {
-void Analysis::analyze(const std::string word) {
+void Analysis::analyze(const std::string &word) {
   words++;
   for (const char letter : word) {
     if (is_valid_letter(letter)) {
@@ -58,7 +58,7 @@ void Analysis::find_best_order() {
     return;
   }
   IndexScore scores[alphabet_size];
-  const double total_words = static_cast<double>(words);
+  const auto total_words = static_cast<double>(words);
   for (size_t i = 0; i < alphabet_size; i++) {
     scores[i].index = i;
     scores[i].score = 1.0 - word_count[i] / total_words;

@@ -22,7 +22,7 @@ std::string get_words_filename() {
   return "words.txt";
 }
 
-LetterCount::LetterCount() {}
+LetterCount::LetterCount() = default;
 
 void LetterCount::initialize(const std::string &word) {
   if (letter_count > 0) {
@@ -97,11 +97,11 @@ bool Word::is_shorter(const Word &a, const Word &b) {
 bool Word::is_shorter_and_smaller(const Word &a, const Word &b) {
   if (Word::is_shorter(a, b)) {
     return true;
-  } else if (Word::is_shorter(b, a)) {
-    return false;
-  } else {
-    return a.word < b.word;
   }
+  if (Word::is_shorter(b, a)) {
+    return false;
+  }
+  return a.word < b.word;
 }
 
 bool Word::is_contained(Word &a, Word &b, const Analysis *an) {
@@ -119,7 +119,7 @@ void dump_word_to_store(std::ostream &os, const Word &word) {
 }
 
 Word read_word_from_store(std::istream &is) {
-  LineNumber line_number;
+  LineNumber line_number = 0;
   is >> line_number;
   std::string string = read_safe_string(is);
   return Word(string, line_number);

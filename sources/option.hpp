@@ -54,7 +54,7 @@ struct Option {
 class OptionList {
  private:
   std::map<std::string, Option> map;
-  void add_option(Option option);
+  void add_option(const Option &option);
   OptionValue get_value(const std::string &string) const;
 
  public:
