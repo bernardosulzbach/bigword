@@ -80,7 +80,7 @@ static std::vector<std::string> get_arguments(const std::string &string) {
   it = std::next(it);
   while (it != string.end()) {
     const std::string::const_iterator end = std::find(it, string.end(), ',');
-    arguments.push_back(std::string(it, end));
+    arguments.emplace_back(it, end);
     it = end;
   }
   return arguments;
