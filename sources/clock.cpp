@@ -32,13 +32,13 @@ void write_time_with_unit(const uint64_t number, std::string_view name) {
 
 void write_time(const double nanoseconds) {
   if (nanoseconds >= billion) {
-    const double seconds = nanoseconds / billion;
+    const auto seconds = nanoseconds / billion;
     write_time_with_unit(std::floor(seconds), "second");
   } else if (nanoseconds >= million) {
-    const double milliseconds = nanoseconds / million;
+    const auto milliseconds = nanoseconds / million;
     write_time_with_unit(std::floor(milliseconds), "millisecond");
   } else if (nanoseconds >= thousand) {
-    const double microseconds = nanoseconds / thousand;
+    const auto microseconds = nanoseconds / thousand;
     write_time_with_unit(std::floor(microseconds), "microsecond");
   } else {
     write_time_with_unit(std::floor(nanoseconds), "nanosecond");
