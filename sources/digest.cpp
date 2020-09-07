@@ -9,18 +9,18 @@ namespace BigWord {
 static constexpr size_t buffer_size = 8192;
 
 Digest::Digest(const std::string &filename) {
-  unsigned char buffer[buffer_size];
-  bool digesting = true;
+  std::array<char, buffer_size> buffer{};
   EVP_MD_CTX *md_context = EVP_MD_CTX_create();
   std::ifstream input(filename, std::ios::binary);
   EVP_DigestInit_ex(md_context, EVP_sha256(), nullptr);
+  auto digesting = true;
   while (digesting) {
-    input.read((char *)buffer, buffer_size);
+    input.read(buffer.data(), buffer_size);
     const size_t read_bytes = input.gcount();
-    EVP_DigestUpdate(md_context, buffer, read_bytes);
+    EVP_DigestUpdate(md_context, buffer.data(), read_bytes);
     digesting = read_bytes == buffer_size;
   }
-  EVP_DigestFinal_ex(md_context, digest, &length);
+  EVP_DigestFinal_ex(md_context, digest.data(), &length);
   EVP_MD_CTX_destroy(md_context);
 }
 
@@ -66,7 +66,6 @@ std::istream &operator>>(std::istream &is, Digest &digest) {
   is >> digest.length;
   // Must erase the newline we wrote before.
   is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  std::fill(digest.digest, digest.digest + Digest::maximum_size, 0);
   for (size_t i = 0; i < digest.length; i++) {
     digest.digest[i] = 16 * read_base_16(is);
     digest.digest[i] += read_base_16(is);
