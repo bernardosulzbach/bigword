@@ -51,7 +51,7 @@ bool LetterCount::is_contained(const LetterCount &o, const Analysis *an) const {
     return false;
   }
   size_t remaining = o.letter_count - letter_count;
-  for (size_t i = 0; i < alphabet_size; i++) {
+  for (size_t i = 0; i < AlphabetSize; i++) {
     const size_t x = an == nullptr ? i : an->best_index(i);
     if (counters[x] > o.counters[x]) {
       return false;

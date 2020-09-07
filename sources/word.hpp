@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -17,7 +18,7 @@ std::string get_words_filename();
 class LetterCount {
  private:
   size_t letter_count = 0;
-  uint8_t counters[alphabet_size] = {0};
+  std::array<uint8_t, AlphabetSize> counters{};
 
  public:
   LetterCount();

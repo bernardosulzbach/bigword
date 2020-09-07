@@ -3,7 +3,7 @@
 #include <string>
 
 namespace BigWord {
-constexpr size_t alphabet_size = 'z' - 'a' + 1;
+constexpr size_t AlphabetSize = 'z' - 'a' + 1;
 
 /**
  * Returns whether or not a letter should be counted.
