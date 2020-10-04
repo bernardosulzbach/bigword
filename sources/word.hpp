@@ -39,7 +39,7 @@ class Word {
   LetterCount count;
 
  public:
-  Word(const std::string &string, LineNumber line = 0);
+  explicit Word(const std::string &string = "", LineNumber line = 0);
 
   bool operator==(const Word &other) const;
 
