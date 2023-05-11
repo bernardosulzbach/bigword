@@ -6,11 +6,14 @@ An application to efficiently find words in a dictionary from a multiset of lett
 
 ## Building
 
+I suggest you use Ninja.
+
+
 ```bash
-$ mkdir bld 
-$ cd bld
-$ cmake ..
-$ make
+$ mkdir build 
+$ cd build
+$ cmake -G Ninja -D CMAKE_BUILD_TYPE=Release .. 
+$ ninja
 ```
 
 ## Running
