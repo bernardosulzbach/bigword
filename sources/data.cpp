@@ -1,12 +1,13 @@
 #include "data.hpp"
 
+#include <cstdint>
 #include <iostream>
 #include <limits>
 #include <stdexcept>
 #include <string>
 
 namespace BigWord {
-static constexpr size_t limit_size = std::numeric_limits<uint32_t>::max();
+static constexpr auto limit_size = std::numeric_limits<std::uint32_t>::max();
 static constexpr char separator = ':';
 
 using std::istream;
