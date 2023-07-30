@@ -6,7 +6,7 @@
 #include <openssl/evp.h>
 
 namespace BigWord {
-static const size_t buffer_size = 8192;
+static constexpr size_t buffer_size = 8192;
 
 Digest::Digest(const std::string &filename) {
   EVP_MD_CTX *md_context;

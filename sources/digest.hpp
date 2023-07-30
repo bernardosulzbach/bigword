@@ -7,7 +7,7 @@
 namespace BigWord {
 class Digest {
  public:
-  static const size_t maximum_size = EVP_MAX_MD_SIZE;
+  static constexpr size_t maximum_size = EVP_MAX_MD_SIZE;
 
  private:
   unsigned int length = 0;

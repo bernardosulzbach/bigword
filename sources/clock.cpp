@@ -19,9 +19,9 @@ double Duration::to_nanoseconds() const {
   return us.count();
 }
 
-static const double thousand = 1000.0;
-static const double million = thousand * thousand;
-static const double billion = thousand * thousand * thousand;
+static constexpr double thousand = 1000.0;
+static constexpr double million = thousand * thousand;
+static constexpr double billion = thousand * thousand * thousand;
 
 void write_time_with_unit(const uint64_t number, std::string_view name) {
   std::cout << number << ' ' << name;
