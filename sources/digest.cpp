@@ -13,7 +13,7 @@ Digest::Digest(const std::string &filename) {
   std::array<unsigned char, buffer_size> buffer{};
   bool digesting = true;
   EVP_MD_CTX *md_context = EVP_MD_CTX_create();
-  std::ifstream input(filename);
+  std::ifstream input(filename, std::ios::binary);
   EVP_DigestInit_ex(md_context, EVP_sha256(), nullptr);
   while (digesting) {
     input.read(reinterpret_cast<char *>(buffer.data()), buffer_size);
