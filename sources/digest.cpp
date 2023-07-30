@@ -25,14 +25,6 @@ Digest::Digest(const std::string &filename) {
   EVP_MD_CTX_destroy(md_context);
 }
 
-bool Digest::operator==(const Digest &other) const noexcept {
-  if (length != other.length) {
-    return false;
-  }
-  return std::equal(std::begin(digest), std::end(digest),
-                    std::begin(other.digest));
-}
-
 static void write_base_16(std::ostream &os, const int x) {
   if (x >= 10) {
     os << static_cast<char>('a' + (x - 10));
