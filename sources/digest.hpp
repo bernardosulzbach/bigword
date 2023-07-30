@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <fstream>
 
 #include <openssl/evp.h>
@@ -11,7 +12,7 @@ class Digest {
 
  private:
   unsigned int length = 0;
-  unsigned char digest[maximum_size] = {0};
+  std::array<unsigned char, maximum_size> digest = {0};
 
  public:
   Digest() = default;

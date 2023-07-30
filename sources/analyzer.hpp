@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 
 #include "rules.hpp"
@@ -14,8 +15,8 @@ class Analysis {
  private:
   // How many words have at least one occurrence of this letter.
   uint32_t words = 0;
-  uint32_t word_count[alphabet_size] = {0};
-  size_t best_order[alphabet_size] = {0};
+  std::array<uint32_t, alphabet_size> word_count = {0};
+  std::array<size_t, alphabet_size> best_order = {0};
 
   void find_best_order();
 

@@ -1,6 +1,7 @@
 #include "analyzer.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <iostream>
 
@@ -57,13 +58,13 @@ void Analysis::find_best_order() {
   if (words == 0) {
     return;
   }
-  IndexScore scores[alphabet_size];
+  std::array<IndexScore, alphabet_size> scores;
   const double total_words = static_cast<double>(words);
   for (size_t i = 0; i < alphabet_size; i++) {
     scores[i].index = i;
     scores[i].score = 1.0 - word_count[i] / total_words;
   }
-  std::sort(scores, scores + alphabet_size);
+  std::sort(std::begin(scores), std::end(scores));
   for (size_t i = 0; i < alphabet_size; i++) {
     best_order[i] = scores[i].index;
   }
