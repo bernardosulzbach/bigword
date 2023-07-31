@@ -7,10 +7,22 @@ set(VERSION_MINOR 1)
 
 set(CMAKE_CXX_STANDARD 20)
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
 # Just add our own flags if using GCC or Clang.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
   message("Compiler is GCC/Clang, using a lot of warnings.")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wunreachable-code -Wreturn-type -Werror")
+  if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=address)
+    add_compile_options(-fsanitize=undefined)
+    add_link_options(-fsanitize=undefined)
+    add_compile_options(-fsanitize=leak)
+    add_link_options(-fsanitize=leak)
+  endif()
 endif()
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Release" OR "${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
