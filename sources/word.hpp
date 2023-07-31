@@ -18,7 +18,7 @@ std::string get_words_filename();
 class LetterCount {
  private:
   size_t letter_count = 0;
-  std::array<uint8_t, alphabet_size> counters = {0};
+  std::array<uint8_t, AlphabetSize> counters = {0};
 
  public:
   LetterCount();
