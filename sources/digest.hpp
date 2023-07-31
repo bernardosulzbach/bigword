@@ -8,11 +8,11 @@
 namespace BigWord {
 class Digest {
  public:
-  static constexpr size_t maximum_size = EVP_MAX_MD_SIZE;
+  static constexpr size_t MaximumSize = EVP_MAX_MD_SIZE;
 
  private:
   unsigned int length = 0;
-  std::array<unsigned char, maximum_size> digest = {0};
+  std::array<unsigned char, MaximumSize> digest = {0};
 
  public:
   Digest() = default;

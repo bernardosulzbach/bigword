@@ -7,19 +7,19 @@
 #include <openssl/evp.h>
 
 namespace BigWord {
-static constexpr size_t buffer_size = 8192;
+static constexpr size_t BufferSize = 8192;
 
 Digest::Digest(const std::string &filename) {
-  std::array<unsigned char, buffer_size> buffer{};
-  bool digesting = true;
+  std::array<unsigned char, BufferSize> buffer{};
   EVP_MD_CTX *md_context = EVP_MD_CTX_create();
   std::ifstream input(filename, std::ios::binary);
   EVP_DigestInit_ex(md_context, EVP_sha256(), nullptr);
+  auto digesting = true;
   while (digesting) {
-    input.read(reinterpret_cast<char *>(buffer.data()), buffer_size);
+    input.read(reinterpret_cast<char *>(buffer.data()), BufferSize);
     const size_t read_bytes = input.gcount();
     EVP_DigestUpdate(md_context, buffer.data(), read_bytes);
-    digesting = read_bytes == buffer_size;
+    digesting = read_bytes == BufferSize;
   }
   EVP_DigestFinal_ex(md_context, digest.data(), &length);
   EVP_MD_CTX_destroy(md_context);
@@ -57,7 +57,6 @@ std::istream &operator>>(std::istream &is, Digest &digest) {
   is >> digest.length;
   // Must erase the newline we wrote before.
   is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  std::fill(std::begin(digest.digest), std::end(digest.digest), 0);
   for (size_t i = 0; i < digest.length; i++) {
     digest.digest[i] = 16 * read_base_16(is);
     digest.digest[i] += read_base_16(is);
