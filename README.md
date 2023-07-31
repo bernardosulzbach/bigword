@@ -16,6 +16,14 @@ $ cmake -G Ninja -D CMAKE_BUILD_TYPE=Release ..
 $ ninja
 ```
 
+## Static analysis and code formatting
+
+From the build tree, run
+
+```bash
+run-clang-tidy -fix -quiet && clang-format -i ../sources/*
+```
+
 ## Running
 
 ```bash
