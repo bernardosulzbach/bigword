@@ -41,10 +41,6 @@ std::string OptionInfo::get_info() const {
 OptionValue::OptionValue(std::string text, const int64_t integer)
     : text(std::move(text)), integer(integer) {}
 
-bool OptionValue::operator==(const OptionValue &other) const noexcept {
-  return text == other.text && integer == other.integer;
-}
-
 bool OptionValue::is_boolean() const {
   return *this == makeNegativeOptionValue() ||
          *this == makePositiveOptionValue();

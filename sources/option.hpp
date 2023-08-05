@@ -19,9 +19,7 @@ class OptionInfo {
   OptionInfo(const std::string &name, const std::string &info)
       : name(name), info(info) {}
 
-  bool operator==(const OptionInfo &other) const {
-    return name == other.name && info == other.info;
-  }
+  [[nodiscard]] bool operator==(const OptionInfo &) const noexcept = default;
 
   [[nodiscard]] std::string get_name() const;
   [[nodiscard]] std::string get_info() const;
@@ -33,7 +31,7 @@ struct OptionValue {
 
   OptionValue(std::string text, int64_t integer);
 
-  bool operator==(const OptionValue &other) const noexcept;
+  [[nodiscard]] bool operator==(const OptionValue &) const noexcept = default;
 
   [[nodiscard]] bool is_boolean() const;
 
