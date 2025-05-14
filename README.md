@@ -21,7 +21,7 @@ $ ninja
 From the build tree, run
 
 ```
-run-clang-tidy -fix -quiet && clang-format -i ../sources/*
+run-clang-tidy -fix -quiet && gersemi -i ../CMakeLists.txt && clang-format -i ../sources/*
 ```
 
 ## Running
