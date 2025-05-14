@@ -59,18 +59,22 @@ OptionList::OptionList() {
 
   OptionInfo line_number_info(option_name_line_number, option_info_line_number);
   add_option(Option(line_number_info, negativeOptionValue));
-  OptionInfo line_number_version(option_name_version, option_info_version);
-  add_option(Option(line_number_version, negativeOptionValue));
+
+  OptionInfo version_info(option_name_version, option_info_version);
+  add_option(Option(version_info, negativeOptionValue));
 
   OptionInfo time_info(option_name_time, option_info_time);
   add_option(Option(time_info, negativeOptionValue));
+
   OptionInfo values_info(option_name_values, option_info_values);
   add_option(Option(values_info, negativeOptionValue));
 
   OptionInfo source_info(option_name_source, option_info_source);
   add_option(Option(source_info, OptionValue(default_source, 0)));
-  OptionInfo allowed_unused(option_name_allow_unused, option_info_allow_unused);
-  add_option(Option(allowed_unused, OptionValue("0", 0)));
+
+  OptionInfo allowed_unused_info(option_name_allow_unused,
+                                 option_info_allow_unused);
+  add_option(Option(allowed_unused_info, OptionValue("0", 0)));
 }
 
 void OptionList::add_option(const Option &option) {
