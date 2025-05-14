@@ -84,12 +84,12 @@ static WordStore make_word_store(const std::string &filename) {
  */
 WordStore load_word_store(const std::string &filename) {
   const std::string store_filename = derive_store_name(filename);
-  std::ifstream input_stream;
-  input_stream.open(store_filename);
-  if (input_stream.is_open()) {
+  std::ifstream ifs;
+  ifs.open(store_filename);
+  if (ifs.is_open()) {
     auto future_digest = std::async(std::launch::async, digest_file, filename);
     WordStore store;
-    input_stream >> store;
+    ifs >> store;
     if (store.source_digest == future_digest.get()) {
       return store;
     }
