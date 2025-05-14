@@ -2,6 +2,8 @@
 
 An application to efficiently find words in a dictionary from a multiset of letters.
 
+You might be looking at a mirror of the [original repository on GitHub](https://github.com/bernardosulzbach/bigword).
+
 [![CI](https://github.com/bernardosulzbach/bigword/actions/workflows/ci.yml/badge.svg)](https://github.com/bernardosulzbach/bigword/actions/workflows/ci.yml)
 
 ## Building
